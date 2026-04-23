@@ -1,0 +1,6 @@
+.env
+.env.local
+.git
+.DS_Store
+.idea
+.claude
