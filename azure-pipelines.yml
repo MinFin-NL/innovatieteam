@@ -1,0 +1,115 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  name: alz-p-mgmt-we-ccoe-pool
+
+variables:
+  - group: innovatieteam-secrets
+  - name: IMAGE
+    value: innovatieteam
+  - name: RESOURCE_GROUP
+    value: rg-innovatieteam-inno-d
+  - name: CONTAINER_APP_ENV
+    value: cae-innovatieteam-inno-d
+  - name: APP
+    value: ca-innovatieteam-inno-d
+
+
+stages:
+  - stage: Build
+    displayName: Build and push image
+    jobs:
+      - job: Build
+        displayName: Docker build and push to ACR
+        steps:
+          - task: AzureCLI@2
+            displayName: Build and push image
+            env:
+              IMAGE_TAG: $(Build.SourceVersion)
+              IMAGE: $(IMAGE)
+              RESOURCE_GROUP: $(RESOURCE_GROUP)
+            inputs:
+              azureSubscription: $(AZURE_SERVICE_CONNECTION)
+              scriptType: bash
+              scriptLocation: inlineScript
+              inlineScript: |
+                ACR_LOGIN_SERVER=$(az acr list --resource-group "$RESOURCE_GROUP" --query "[0].loginServer" -o tsv)
+                az acr login --name "${ACR_LOGIN_SERVER%%.*}"
+                docker build \
+                  -t "$ACR_LOGIN_SERVER/$IMAGE:$IMAGE_TAG" \
+                  -t "$ACR_LOGIN_SERVER/$IMAGE:latest" .
+                docker push "$ACR_LOGIN_SERVER/$IMAGE:$IMAGE_TAG"
+                docker push "$ACR_LOGIN_SERVER/$IMAGE:latest"
+
+  - stage: Deploy
+    displayName: Deploy to Container Apps
+    dependsOn: Build
+    jobs:
+      - job: Deploy
+        displayName: Deploy dashboard
+        steps:
+          - task: AzureCLI@2
+            displayName: Deploy container app
+            env:
+              IMAGE_TAG: $(Build.SourceVersion)
+              IMAGE: $(IMAGE)
+              APP: $(APP)
+              RESOURCE_GROUP: $(RESOURCE_GROUP)
+              CONTAINER_APP_ENV: $(CONTAINER_APP_ENV)
+            inputs:
+              azureSubscription: $(AZURE_SERVICE_CONNECTION)
+              scriptType: bash
+              scriptLocation: inlineScript
+              inlineScript: |
+                ACR_LOGIN_SERVER=$(az acr list --resource-group "$RESOURCE_GROUP" --query "[0].loginServer" -o tsv)
+                ACR_NAME="${ACR_LOGIN_SERVER%%.*}"
+                ACR_USER=$(az acr credential show --name "$ACR_NAME" --query username -o tsv)
+                ACR_PASS=$(az acr credential show --name "$ACR_NAME" --query "passwords[0].value" -o tsv)
+
+                if az containerapp show --name "$APP" --resource-group "$RESOURCE_GROUP" &>/dev/null; then
+                  az containerapp update \
+                    --name "$APP" \
+                    --resource-group "$RESOURCE_GROUP" \
+                    --image "$ACR_LOGIN_SERVER/$IMAGE:$IMAGE_TAG"
+                else
+                  az containerapp create \
+                    --name "$APP" \
+                    --resource-group "$RESOURCE_GROUP" \
+                    --environment "$CONTAINER_APP_ENV" \
+                    --image "$ACR_LOGIN_SERVER/$IMAGE:$IMAGE_TAG" \
+                    --registry-server "$ACR_LOGIN_SERVER" \
+                    --registry-username "$ACR_USER" \
+                    --registry-password "$ACR_PASS" \
+                    --ingress external \
+                    --target-port 80 \
+                    --cpu 0.25 --memory 0.5Gi \
+                    --min-replicas 1 --max-replicas 3
+                fi
+
+          - task: AzureCLI@2
+            displayName: Apply firewall rules
+            env:
+              APP: $(APP)
+              RESOURCE_GROUP: $(RESOURCE_GROUP)
+              ALLOWED_IP_1: $(ALLOWED_IP_1)
+              ALLOWED_IP_2: $(ALLOWED_IP_2)
+            inputs:
+              azureSubscription: $(AZURE_SERVICE_CONNECTION)
+              scriptType: bash
+              scriptLocation: inlineScript
+              inlineScript: |
+                az containerapp ingress access-restriction set \
+                  --name "$APP" \
+                  --resource-group "$RESOURCE_GROUP" \
+                  --rule-name "DWR Next werkplekken" \
+                  --ip-address "$ALLOWED_IP_1" \
+                  --action Allow
+                az containerapp ingress access-restriction set \
+                  --name "$APP" \
+                  --resource-group "$RESOURCE_GROUP" \
+                  --rule-name "ITS" \
+                  --ip-address "$ALLOWED_IP_2" \
+                  --action Allow
