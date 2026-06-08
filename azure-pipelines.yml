@@ -31,6 +31,12 @@ stages:
               IMAGE_TAG: $(Build.SourceVersion)
               IMAGE: $(IMAGE)
               RESOURCE_GROUP: $(RESOURCE_GROUP)
+              VITE_URL_FINDOCS: $(URL_FINDOCS)
+              VITE_URL_OPSTELHULP: $(URL_OPSTELHULP)
+              VITE_URL_KASVISIE: $(URL_KASVISIE)
+              VITE_URL_INNOVATIEPLATFORM: $(URL_INNOVATIEPLATFORM)
+              VITE_URL_BELEIDSASSISTENT: $(URL_BELEIDSASSISTENT)
+              VITE_URL_FINCHAT: $(URL_FINCHAT)
             inputs:
               azureSubscription: $(AZURE_SERVICE_CONNECTION)
               scriptType: bash
@@ -39,6 +45,12 @@ stages:
                 ACR_LOGIN_SERVER=$(az acr list --resource-group "$RESOURCE_GROUP" --query "[0].loginServer" -o tsv)
                 az acr login --name "${ACR_LOGIN_SERVER%%.*}"
                 docker build \
+                  --build-arg VITE_URL_FINDOCS="$VITE_URL_FINDOCS" \
+                  --build-arg VITE_URL_OPSTELHULP="$VITE_URL_OPSTELHULP" \
+                  --build-arg VITE_URL_KASVISIE="$VITE_URL_KASVISIE" \
+                  --build-arg VITE_URL_INNOVATIEPLATFORM="$VITE_URL_INNOVATIEPLATFORM" \
+                  --build-arg VITE_URL_BELEIDSASSISTENT="$VITE_URL_BELEIDSASSISTENT" \
+                  --build-arg VITE_URL_FINCHAT="$VITE_URL_FINCHAT" \
                   -t "$ACR_LOGIN_SERVER/$IMAGE:$IMAGE_TAG" \
                   -t "$ACR_LOGIN_SERVER/$IMAGE:latest" .
                 docker push "$ACR_LOGIN_SERVER/$IMAGE:$IMAGE_TAG"

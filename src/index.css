@@ -1,0 +1,475 @@
+/*
+ * Layout glue for the Innovatieteam dashboard.
+ * Component styling comes from the NL Design System (Rijkshuisstijl Community)
+ * CSS imported in main.jsx; this file only arranges those components and uses
+ * design tokens (--rhc-*) for every colour, space and radius — no ad-hoc values.
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--rhc-color-bg-document);
+  color: var(--rhc-color-foreground-default);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--rhc-color-border-default);
+  border-radius: var(--rhc-border-radius-round);
+}
+
+.app-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--rhc-color-cool-grey-50, var(--rhc-color-bg-document));
+}
+
+/* ---------- Header ---------- */
+.app-header {
+  background: var(--rhc-color-primary-500);
+  color: var(--rhc-color-wit);
+}
+
+/*
+ * NLDS headings/paragraphs read their colour from custom properties (set to a
+ * dark token inside .rhc-theme), which out-specify a plain `color` rule. On our
+ * blue regions we retarget those properties to white so the text is legible.
+ * Headings are the candidate `.nl-heading--level-N` component, driven by
+ * per-level colour tokens.
+ */
+.app-header__hero,
+.app-dialog__header {
+  --nl-heading-level-1-color: var(--rhc-color-wit);
+  --nl-heading-level-2-color: var(--rhc-color-wit);
+  --nl-heading-level-3-color: var(--rhc-color-wit);
+  --nl-paragraph-color: var(--rhc-color-wit);
+  --rhc-paragraph-color: var(--rhc-color-wit);
+  --utrecht-pre-heading-color: var(--rhc-color-wit);
+  --utrecht-paragraph-color: var(--rhc-color-wit);
+  color: var(--rhc-color-wit);
+}
+
+/* White masthead, per the Rijksoverheid huisstijl: the logo is dark-on-white.
+   Centred via flex. */
+.app-header__bar {
+  background: var(--rhc-color-wit);
+  padding: 0 var(--rhc-space-2xl);
+  display: flex;
+  justify-content: center;
+}
+
+
+.app-header__hero {
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+  padding: var(--rhc-space-2xl) var(--rhc-space-2xl) 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--rhc-space-md);
+}
+
+.app-header__intro {
+  display: flex;
+  align-items: center;
+  gap: var(--rhc-space-lg);
+}
+
+.app-header__logo {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  flex-shrink: 0;
+  /* White on dark-blue header background */
+  filter: brightness(0) invert(1);
+}
+
+.app-header__title {
+  color: var(--rhc-color-wit);
+  margin: var(--rhc-space-2xs) 0 0;
+}
+
+.app-header__tagline {
+  opacity: 0.92;
+  margin: var(--rhc-space-2xs) 0 0;
+}
+
+.app-header .utrecht-pre-heading,
+.app-header__intro .utrecht-pre-heading {
+  color: var(--rhc-color-wit);
+  opacity: 0.75;
+}
+
+.app-header__count {
+  background: color-mix(in srgb, var(--rhc-color-wit) 14%, transparent);
+  border-radius: var(--rhc-border-radius-md);
+  padding: var(--rhc-space-sm) var(--rhc-space-lg);
+  text-align: center;
+}
+
+.app-header__count-value {
+  display: block;
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.app-header__count-label {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+/* ---------- Tabs ---------- */
+.app-tabs {
+  max-width: 1280px;
+  margin: var(--rhc-space-lg) auto 0;
+  width: 100%;
+  padding: 0 var(--rhc-space-2xl);
+  display: flex;
+  gap: var(--rhc-space-xs);
+}
+
+.app-tab {
+  appearance: none;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: color-mix(in srgb, var(--rhc-color-wit) 65%, transparent);
+  font: inherit;
+  font-size: 1rem;
+  padding: var(--rhc-space-sm) var(--rhc-space-xl);
+  cursor: pointer;
+}
+
+.app-tab--active {
+  color: var(--rhc-color-wit);
+  font-weight: 700;
+  border-bottom-color: var(--rhc-color-wit);
+}
+
+/* ---------- Main ---------- */
+.app-main {
+  flex: 1;
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+  padding: var(--rhc-space-2xl);
+}
+
+.app-section-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--rhc-space-md);
+  margin-bottom: var(--rhc-space-xl);
+}
+
+.app-muted {
+  color: var(--rhc-color-foreground-subtle);
+  margin: var(--rhc-space-2xs) 0 0;
+}
+
+.app-subhead {
+  margin: var(--rhc-space-2xl) 0 var(--rhc-space-md);
+}
+
+/* ---------- Surfaces ---------- */
+.app-card {
+  background: var(--rhc-color-wit);
+  border: 1px solid var(--rhc-color-border-subtle);
+  border-radius: var(--rhc-border-radius-md);
+}
+
+/* ---------- Product grid + cards ---------- */
+.app-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--rhc-space-lg);
+}
+
+/* Light-blue block with oversized rounded top-right corner (FinDocs/Invulhulp
+   style). No NLDS card wrapper — plain div so we control the layout fully. */
+.app-product-card {
+  background: var(--rhc-color-hemelblauw-200);
+  border: none;
+  border-radius: var(--rhc-border-radius-sm) 3.5rem
+    var(--rhc-border-radius-sm) var(--rhc-border-radius-sm);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--rhc-color-donkerblauw-700) 14%, transparent);
+  padding: var(--rhc-space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--rhc-space-md);
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.app-product-card:hover,
+.app-product-card:focus-visible {
+  transform: translateY(-2px);
+  background: var(--rhc-color-hemelblauw-300);
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--rhc-color-donkerblauw-700) 24%, transparent);
+  outline: none;
+}
+
+/* Card body: text on the left, large icon on the right */
+.app-product-card__body {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--rhc-space-md);
+  flex: 1;
+}
+
+.app-product-card__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rhc-space-xs);
+  flex: 1;
+  min-width: 0;
+}
+
+.app-product-card__name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--rhc-color-donkerblauw-700);
+  line-height: 1.2;
+}
+
+.app-product-card__desc {
+  font-size: 0.9rem;
+  color: var(--rhc-color-donkerblauw-600);
+  line-height: 1.4;
+}
+
+.app-product-card__icon {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  flex-shrink: 0;
+  opacity: 0.9;
+  /* Convert black SVG paths to the Rijksoverheid primary blue (#154273). */
+  filter: brightness(0) saturate(100%) invert(14%) sepia(76%) saturate(706%)
+    hue-rotate(195deg) brightness(93%) contrast(97%);
+}
+
+.app-product-card__footer {
+  display: flex;
+  align-items: center;
+  gap: var(--rhc-space-sm);
+  margin-top: var(--rhc-space-md);
+  padding-top: var(--rhc-space-sm);
+  border-top: 1px solid color-mix(in srgb, var(--rhc-color-donkerblauw-600) 25%, transparent);
+}
+
+.app-tag {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--rhc-color-donkerblauw-600);
+  white-space: nowrap;
+  margin-left: auto;
+  align-self: center;
+}
+
+/* ---------- Status badge ---------- */
+.app-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rhc-space-2xs);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.app-status > span:first-child {
+  display: inline-flex;
+}
+
+.app-status svg {
+  inline-size: 0.6rem;
+  block-size: 0.6rem;
+}
+
+.app-status__dot--pulse {
+  animation: app-pulse 1.2s infinite;
+}
+
+@keyframes app-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.3); }
+}
+
+/* ---------- Dialog ---------- */
+.app-dialog {
+  border: none;
+  padding: 0;
+  max-width: 480px;
+  width: calc(100% - 2 * var(--rhc-space-xl));
+  border-radius: var(--rhc-border-radius-md);
+  box-shadow: 0 8px 48px color-mix(in srgb, var(--rhc-color-primary-500) 22%, transparent);
+  overflow: hidden;
+}
+
+.app-dialog::backdrop {
+  background: color-mix(in srgb, var(--rhc-color-primary-500) 45%, transparent);
+  backdrop-filter: blur(3px);
+}
+
+.app-dialog__header {
+  background: var(--rhc-color-primary-500);
+  color: var(--rhc-color-wit);
+  padding: var(--rhc-space-xl);
+}
+
+.app-dialog__icon {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  display: block;
+  margin-bottom: var(--rhc-space-sm);
+}
+
+.app-dialog__title {
+  color: var(--rhc-color-wit);
+}
+
+.app-dialog__category {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.8;
+}
+
+.app-dialog__body {
+  padding: var(--rhc-space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--rhc-space-lg);
+}
+
+.app-dialog__status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--rhc-space-sm) var(--rhc-space-md);
+  background: var(--rhc-color-cool-grey-50, var(--rhc-color-bg-document));
+  border-radius: var(--rhc-border-radius-sm);
+}
+
+.app-dialog__status-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--rhc-color-foreground-subtle);
+}
+
+.app-dialog__actions {
+  display: flex;
+  gap: var(--rhc-space-sm);
+  flex-wrap: wrap;
+}
+
+.app-dialog__actions > * {
+  flex: 1;
+  min-width: 140px;
+}
+
+/* ---------- Mission + team ---------- */
+.app-mission {
+  background: var(--rhc-color-hemelblauw-200);
+  border: none;
+  border-radius: var(--rhc-border-radius-sm) 4.5rem
+    var(--rhc-border-radius-sm) var(--rhc-border-radius-sm);
+  padding: var(--rhc-space-2xl);
+  margin-bottom: var(--rhc-space-xl);
+  --nl-heading-level-3-color: var(--rhc-color-donkerblauw-700);
+  --rhc-paragraph-color: var(--rhc-color-donkerblauw-600);
+  --utrecht-paragraph-color: var(--rhc-color-donkerblauw-600);
+  --utrecht-pre-heading-color: var(--rhc-color-donkerblauw-600);
+  color: var(--rhc-color-donkerblauw-600);
+}
+
+.app-mission .utrecht-pre-heading,
+.app-mission .utrecht-paragraph {
+  color: var(--rhc-color-donkerblauw-600);
+}
+
+.app-mission__title {
+  color: var(--rhc-color-donkerblauw-700);
+  margin: var(--rhc-space-2xs) 0 var(--rhc-space-sm);
+}
+
+/* 2-column grid, matching the ai-validation team page layout */
+.app-team {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--rhc-space-xl);
+}
+
+/* Each card: light-blue block with rounded top-right corner */
+.app-team-member {
+  background: var(--rhc-color-hemelblauw-200);
+  border: none;
+  border-radius: var(--rhc-border-radius-sm) 3.5rem
+    var(--rhc-border-radius-sm) var(--rhc-border-radius-sm);
+  padding: var(--rhc-space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--rhc-space-lg);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--rhc-color-donkerblauw-700) 14%, transparent);
+}
+
+.app-team-member__meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rhc-space-2xs);
+}
+
+.app-team-member__name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--rhc-color-donkerblauw-700);
+}
+
+.app-team-member__role {
+  font-size: 0.9rem;
+  color: var(--rhc-color-donkerblauw-600);
+}
+
+.app-team-member__photo-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.app-team-member__photo {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top center;
+  border: 4px solid var(--rhc-color-primary-500);
+  display: block;
+}
+
+/* ---------- Footer ---------- */
+.app-footer {
+  background: color-mix(in srgb, var(--rhc-color-primary-500) 82%, black);
+  color: color-mix(in srgb, var(--rhc-color-wit) 70%, transparent);
+  padding: var(--rhc-space-md) var(--rhc-space-2xl);
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--rhc-space-2xs);
+}

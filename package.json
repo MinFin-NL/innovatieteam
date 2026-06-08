@@ -1,0 +1,24 @@
+{
+  "name": "innovatieteam-dashboard",
+  "version": "1.0.0",
+  "description": "Internal dashboard for the Innovation Team at the Ministry of Finance, built on the NL Design System (Rijkshuisstijl Community).",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@rijkshuisstijl-community/components-css": "^17.0.0",
+    "@rijkshuisstijl-community/components-react": "15.0.2",
+    "@rijkshuisstijl-community/design-tokens": "15.0.0",
+    "@rijkshuisstijl-community/font": "1.1.4",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^6.1.0"
+  }
+}
