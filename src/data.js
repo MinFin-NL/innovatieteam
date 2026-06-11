@@ -1,12 +1,24 @@
 // Products built by the Innovatieteam. `url` is pinged for a live status; a
-// null `url` means the tool is not yet reachable ("Binnenkort").
+// null `url` means the tool is not yet reachable ("Onbekend").
 // URLs are injected at build time via VITE_URL_* env vars (Azure DevOps secret group: innovatieteam-secrets).
+
+// Normalise a build-time env var into a usable URL or null. Azure DevOps leaves
+// undefined pipeline variables as the literal unsubstituted string "$(NAME)",
+// which is truthy — so `env || null` is not enough. We only accept absolute
+// http(s) URLs; anything else (empty, whitespace, "$(...)" placeholder) is null
+// so the tool shows as "Onbekend" instead of falsely pinging the app origin.
+function cleanUrl(value) {
+  const v = (value || '').trim();
+  if (!/^https?:\/\//i.test(v)) return null;
+  return v;
+}
+
 export const PRODUCTS = [
   {
     id: 'findocs',
     name: 'FinDocs',
     description: 'AI-ondersteunde hulp bij het invullen van formulieren en aanvragen.',
-    url: import.meta.env.VITE_URL_FINDOCS || null,
+    url: cleanUrl(import.meta.env.VITE_URL_FINDOCS),
     icon: 'icons/findocs_logo.svg',
     category: 'Formulieren',
   },
@@ -14,7 +26,7 @@ export const PRODUCTS = [
     id: 'opstelhulp',
     name: 'Opstelhulp',
     description: 'Hulp bij het opstellen van brieven, nota\'s en andere documenten.',
-    url: import.meta.env.VITE_URL_OPSTELHULP || null,
+    url: cleanUrl(import.meta.env.VITE_URL_OPSTELHULP),
     icon: 'icons/opstelhulp_logo.svg',
     category: 'Documenten',
   },
@@ -22,7 +34,7 @@ export const PRODUCTS = [
     id: 'kasvisie',
     name: 'Kasvisie',
     description: 'Inzicht in kasstromen en financiële prognoses voor de overheid.',
-    url: import.meta.env.VITE_URL_KASVISIE || null,
+    url: cleanUrl(import.meta.env.VITE_URL_KASVISIE),
     icon: 'icons/kasvisie_logo.svg',
     category: 'Financiën',
   },
@@ -30,7 +42,7 @@ export const PRODUCTS = [
     id: 'innovatieplatform',
     name: 'Innovatieplatform',
     description: 'Centraal platform voor het delen en beheren van innovatie-ideeën.',
-    url: import.meta.env.VITE_URL_INNOVATIEPLATFORM || null,
+    url: cleanUrl(import.meta.env.VITE_URL_INNOVATIEPLATFORM),
     icon: 'icons/innovatieplatform_logo.svg',
     category: 'Platform',
   },
@@ -38,7 +50,7 @@ export const PRODUCTS = [
     id: 'beleidsassistent',
     name: 'Beleids Evaluaties Agent',
     description: 'AI-assistent die beleidsmakers ondersteunt bij analyses en adviezen.',
-    url: import.meta.env.VITE_URL_BELEIDSASSISTENT || null,
+    url: cleanUrl(import.meta.env.VITE_URL_BELEIDSASSISTENT),
     icon: 'icons/beleidsassistent_logo.svg',
     category: 'Beleid',
   },
@@ -46,7 +58,7 @@ export const PRODUCTS = [
     id: 'finchat',
     name: 'FinChat',
     description: 'Chatbot voor financiële vragen binnen het Ministerie van Financiën.',
-    url: import.meta.env.VITE_URL_FINCHAT || null,
+    url: cleanUrl(import.meta.env.VITE_URL_FINCHAT),
     icon: 'icons/finchat_logo.svg',
     category: 'Communicatie',
   },
