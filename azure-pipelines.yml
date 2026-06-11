@@ -11,11 +11,11 @@ variables:
   - name: IMAGE
     value: innovatieteam
   - name: RESOURCE_GROUP
-    value: rg-innovatieteam-inno-d
+    value: rg-invulhulp-inno-d
   - name: CONTAINER_APP_ENV
-    value: cae-innovatieteam-inno-d
+    value: cae-invulhulp-inno-d
   - name: APP
-    value: ca-innovatieteam-inno-d
+    value: ca-invulhulp-inno-d
 
 
 stages:
