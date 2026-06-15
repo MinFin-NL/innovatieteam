@@ -82,25 +82,25 @@ export const TEAM = [
   {
     id: 'mathijs',
     name: 'Mathijs Scholten',
-    role: 'Innovatie Manager AI',
+    role: 'Innovatiemanager AI',
     photo: 'people/mathijs_scholten.jpg',
   },
   {
     id: 'thomas',
     name: 'Thomas van der Meer',
-    role: 'Innovatie Manager Quantum',
+    role: 'Innovatiemanager Quantum',
     photo: 'people/thomas_van_der_meer.png',
   },
   {
     id: 'britt',
     name: 'Britt Hegge',
-    role: 'Innovatie Manager Post Quantum Cryptografie',
+    role: 'Innovatiemanager Post Quantum Cryptografie',
     photo: 'people/britt_hegge.jpg',
   },
   {
     id: 'job',
     name: 'Job Slaats',
-    role: 'Innovatie Manager',
+    role: 'Innovatiemanager',
     photo: 'people/job_slaats.jpg',
   },
 ];
