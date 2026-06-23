@@ -23,14 +23,6 @@ export const PRODUCTS = [
     category: 'Formulieren',
   },
   {
-    id: 'opstelhulp',
-    name: 'Opstelhulp',
-    description: 'Hulp bij het opstellen van brieven, nota\'s en andere documenten.',
-    url: cleanUrl(import.meta.env.VITE_URL_OPSTELHULP),
-    icon: 'icons/opstelhulp_logo.svg',
-    category: 'Documenten',
-  },
-  {
     id: 'kasvisie',
     name: 'Kasvisie',
     description: 'Inzicht in kasstromen en financiële prognoses voor de overheid.',
@@ -61,6 +53,14 @@ export const PRODUCTS = [
     url: cleanUrl(import.meta.env.VITE_URL_FINCHAT),
     icon: 'icons/finchat_logo.svg',
     category: 'Communicatie',
+  },
+  {
+    id: 'note',
+    name: 'Note',
+    description: 'AI-ondersteunde notities voor het snel vastleggen en structureren van informatie.',
+    url: cleanUrl(import.meta.env.VITE_URL_NOTE),
+    icon: 'icons/note_logo.svg',
+    category: 'Productiviteit',
   },
 ];
 
