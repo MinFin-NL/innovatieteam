@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import {
   Root,
-  PageBody,
   Logo,
   Icon,
   Heading,
@@ -86,7 +85,7 @@ export default function App() {
         </nav>
       </header>
 
-      <PageBody className="app-main">
+      <main className="app-main">
         {activeSection === 'producten' && (
           <section>
             <div className="app-section-head">
@@ -145,7 +144,7 @@ export default function App() {
             </div>
           </section>
         )}
-      </PageBody>
+      </main>
 
       <footer className="app-footer">
         <span>Innovatieteam — Ministerie van Financiën</span>
