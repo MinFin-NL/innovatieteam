@@ -55,19 +55,19 @@ export const PRODUCTS = [
     category: 'Communicatie',
   },
   {
-    id: 'finchat-innovatie',
-    name: 'FinChat - Innovatie',
-    description: 'Experimentele versie van FinChat',
-    url: cleanUrl(import.meta.env.VITE_URL_FINCHAT_INNOVATIE),
-    icon: 'icons/finchat_logo.svg',
-    category: 'Communicatie',
-  },
-  {
     id: 'finchat-acceptatie',
     name: 'FinChat - Acceptatie',
     description: 'Testomgeving van FinChat',
     url: cleanUrl(import.meta.env.VITE_URL_FINCHAT_ACCEPTATIE),
-    icon: 'icons/finchat_logo.svg',
+    icon: 'icons/finchat_acceptatie_logo.svg',
+    category: 'Communicatie',
+  },
+  {
+    id: 'finchat-innovatie',
+    name: 'FinChat - Innovatie',
+    description: 'Experimentele versie van FinChat',
+    url: cleanUrl(import.meta.env.VITE_URL_FINCHAT_INNOVATIE),
+    icon: 'icons/finchat_innovatie_logo.svg',
     category: 'Communicatie',
   },
   {
