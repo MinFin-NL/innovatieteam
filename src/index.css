@@ -346,6 +346,7 @@ body,
   object-fit: contain;
   display: block;
   margin-bottom: var(--rhc-space-sm);
+  filter: brightness(0) invert(1);
 }
 
 .app-dialog__title {
@@ -390,6 +391,10 @@ body,
 .app-dialog__actions > * {
   flex: 1;
   min-width: 140px;
+}
+
+.app-dialog__actions .tabler-icon {
+  color: white;
 }
 
 /* ---------- Mission + team ---------- */
