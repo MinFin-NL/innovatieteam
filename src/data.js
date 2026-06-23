@@ -90,9 +90,9 @@ export const TEAM = [
     photo: 'people/britt_hegge.jpg',
   },
   {
-    id: 'job',
-    name: 'Job Slaats',
+    id: 'jop',
+    name: 'Jop Slaats',
     role: 'Innovatiemanager',
-    photo: 'people/job_slaats.jpg',
+    photo: 'people/jop_slaats.jpg',
   },
 ];
