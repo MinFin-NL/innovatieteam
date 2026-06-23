@@ -62,14 +62,6 @@ export const PRODUCTS = [
     icon: 'icons/finchat_logo.svg',
     category: 'Communicatie',
   },
-  {
-    id: 'annotatietool',
-    name: 'Annotatietool',
-    description: 'Hulpmiddel voor het annoteren en labelen van documenten en data.',
-    url: null,
-    icon: 'icons/annotatietool_logo.svg',
-    category: 'Data',
-  },
 ];
 
 export const TEAM = [
