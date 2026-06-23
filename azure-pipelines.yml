@@ -37,6 +37,8 @@ stages:
               VITE_URL_INNOVATIEPLATFORM: $(URL_INNOVATIEPLATFORM)
               VITE_URL_BELEIDSASSISTENT: $(URL_BELEIDSASSISTENT)
               VITE_URL_FINCHAT: $(URL_FINCHAT)
+              VITE_URL_FINCHAT_INNOVATIE: $(URL_FINCHAT_INNOVATIE)
+              VITE_URL_FINCHAT_ACCEPTATIE: $(URL_FINCHAT_ACCEPTATIE)
               VITE_URL_NOTE: $(URL_NOTE)
             inputs:
               azureSubscription: $(AZURE_SERVICE_CONNECTION)
@@ -52,6 +54,8 @@ stages:
                   --build-arg VITE_URL_INNOVATIEPLATFORM="$VITE_URL_INNOVATIEPLATFORM" \
                   --build-arg VITE_URL_BELEIDSASSISTENT="$VITE_URL_BELEIDSASSISTENT" \
                   --build-arg VITE_URL_FINCHAT="$VITE_URL_FINCHAT" \
+                  --build-arg VITE_URL_FINCHAT_INNOVATIE="$VITE_URL_FINCHAT_INNOVATIE" \
+                  --build-arg VITE_URL_FINCHAT_ACCEPTATIE="$VITE_URL_FINCHAT_ACCEPTATIE" \
                   --build-arg VITE_URL_NOTE="$VITE_URL_NOTE" \
                   -t "$ACR_LOGIN_SERVER/$IMAGE:$IMAGE_TAG" \
                   -t "$ACR_LOGIN_SERVER/$IMAGE:latest" .
