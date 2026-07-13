@@ -40,6 +40,7 @@ stages:
               VITE_URL_FINCHAT_INNOVATIE: $(URL_FINCHAT_INNOVATIE)
               VITE_URL_FINCHAT_ACCEPTATIE: $(URL_FINCHAT_ACCEPTATIE)
               VITE_URL_NOTE: $(URL_NOTE)
+              VITE_URL_KAMERDEBATAI: $(URL_KAMERDEBATAI)
             inputs:
               azureSubscription: $(AZURE_SERVICE_CONNECTION)
               scriptType: bash
@@ -57,6 +58,7 @@ stages:
                   --build-arg VITE_URL_FINCHAT_INNOVATIE="$VITE_URL_FINCHAT_INNOVATIE" \
                   --build-arg VITE_URL_FINCHAT_ACCEPTATIE="$VITE_URL_FINCHAT_ACCEPTATIE" \
                   --build-arg VITE_URL_NOTE="$VITE_URL_NOTE" \
+                  --build-arg VITE_URL_KAMERDEBATAI="$VITE_URL_KAMERDEBATAI" \
                   -t "$ACR_LOGIN_SERVER/$IMAGE:$IMAGE_TAG" \
                   -t "$ACR_LOGIN_SERVER/$IMAGE:latest" .
                 docker push "$ACR_LOGIN_SERVER/$IMAGE:$IMAGE_TAG"

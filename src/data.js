@@ -71,6 +71,14 @@ export const PRODUCTS = [
     category: 'Communicatie',
   },
   {
+    id: 'kamerdebatai',
+    name: 'KamerDebatAI',
+    description: 'Live transcriptie en vraagextractie tijdens Kamerdebatten.',
+    url: cleanUrl(import.meta.env.VITE_URL_KAMERDEBATAI),
+    icon: 'icons/kamerdebatai_logo.svg',
+    category: 'Communicatie',
+  },
+  {
     id: 'note',
     name: 'Note',
     description: 'AI-ondersteunde notities voor het snel vastleggen en structureren van informatie.',
