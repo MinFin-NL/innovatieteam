@@ -79,6 +79,14 @@ export const PRODUCTS = [
     category: 'Communicatie',
   },
   {
+    id: 'normnet',
+    name: 'NormNet',
+    description: 'Auditeerbare procesautomatisering: een petrinet bewaakt de processtappen, logische normen bewaken wat is toegestaan.',
+    url: cleanUrl(import.meta.env.VITE_URL_NORMNET),
+    icon: 'icons/normnet_logo.svg',
+    category: 'Procesautomatisering',
+  },
+  {
     id: 'note',
     name: 'Note',
     description: 'AI-ondersteunde notities voor het snel vastleggen en structureren van informatie.',
