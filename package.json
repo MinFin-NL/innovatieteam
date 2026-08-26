@@ -1,7 +1,7 @@
 {
   "name": "innovatieteam-dashboard",
   "version": "1.0.0",
-  "description": "Internal dashboard for the Innovation Team at the Ministry of Finance, built on the NL Design System (Rijkshuisstijl Community).",
+  "description": "Internal dashboard for the Innovation Team at the Ministry of Finance, built on the NLDD Design System (Nederlandse Digitale Dienst).",
   "private": true,
   "type": "module",
   "scripts": {
@@ -10,15 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@rijkshuisstijl-community/components-css": "^17.0.0",
-    "@rijkshuisstijl-community/components-react": "15.0.2",
-    "@rijkshuisstijl-community/design-tokens": "15.0.0",
-    "@rijkshuisstijl-community/font": "1.1.4",
-    "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "@nldd/design-system": "^0.8.83",
+    "vue": "^3.5.13"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^4.3.4",
+    "@vitejs/plugin-vue": "^5.2.1",
     "vite": "^6.1.0"
   }
 }
