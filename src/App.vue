@@ -4,7 +4,6 @@ import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { PRODUCTS, TEAM } from './data.js';
 import { pingUrl } from './ping.js';
 import ProductCard from './components/ProductCard.vue';
-import ProductSheet from './components/ProductSheet.vue';
 import TeamMember from './components/TeamMember.vue';
 
 const TABS = [
@@ -15,7 +14,6 @@ const TABS = [
 const statuses = ref(
   Object.fromEntries(PRODUCTS.map((p) => [p.id, p.url ? 'checking' : 'unknown'])),
 );
-const selectedProduct = ref(null);
 const activeSection = ref('producten');
 
 const onlineCount = computed(
@@ -38,12 +36,6 @@ onMounted(() => {
 });
 onUnmounted(() => clearInterval(interval));
 
-// tabchange hands over the item element, not an id — read it back off the
-// data-id we put on each item.
-function onTabChange(event) {
-  const id = event.detail?.item?.dataset?.id;
-  if (id) activeSection.value = id;
-}
 </script>
 
 <template>
@@ -53,15 +45,26 @@ function onTabChange(event) {
         slot="header"
         logo-title="Ministerie van Financiën"
         website-title="Innovatieteam"
-      ></nldd-top-navigation-bar>
+      >
+        <nldd-menu-bar slot="global" accessible-label="Secties">
+          <nldd-menu-bar-item
+            v-for="tab in TABS"
+            :key="tab.id"
+            :text="tab.label"
+            :icon="tab.icon"
+            :current="activeSection === tab.id"
+            @select="activeSection = tab.id"
+          ></nldd-menu-bar-item>
+        </nldd-menu-bar>
+      </nldd-top-navigation-bar>
 
       <nldd-skip-link href="#hoofdinhoud" text="Direct naar de inhoud"></nldd-skip-link>
 
-      <!-- No hero band. A full-width coloured block spends ~180px repeating the
-           team name that the navigation bar already carries, and pushes the
-           product grid — the actual proof of what this team does — below the
-           fold. The h1 states the work instead of the label. -->
-      <nldd-simple-section padding-bottom="24">
+      <nldd-simple-section
+        id="hoofdinhoud"
+        padding-bottom="24"
+        v-show="activeSection === 'producten'"
+      >
         <nldd-title size="1">
           <h1>Wij bouwen AI-producten voor het Ministerie van Financiën</h1>
           <span slot="subtitle">
@@ -71,33 +74,12 @@ function onTabChange(event) {
         </nldd-title>
         <nldd-spacer size="16"></nldd-spacer>
         <nldd-container layout="wrap" gap="8">
-          <nldd-badge color="accent" :text="`${PRODUCTS.length} producten live`"></nldd-badge>
-          <nldd-badge
-            color="success"
-            :text="`${onlineCount} van de ${totalPingable} nu online`"
+          <nldd-badge color="success" :text="`${onlineCount} van de ${totalPingable} nu online`"
           ></nldd-badge>
-          <nldd-badge color="neutral" :text="`${TEAM.length} teamleden`"></nldd-badge>
         </nldd-container>
       </nldd-simple-section>
 
-      <nldd-simple-section padding-block="0">
-        <nldd-tab-bar
-          id="hoofdinhoud"
-          accessible-label="Secties"
-          @tabchange="onTabChange"
-        >
-          <nldd-tab-bar-item
-            v-for="tab in TABS"
-            :key="tab.id"
-            :data-id="tab.id"
-            :text="tab.label"
-            :icon="tab.icon"
-            :selected="activeSection === tab.id"
-          ></nldd-tab-bar-item>
-        </nldd-tab-bar>
-      </nldd-simple-section>
-
-      <nldd-simple-section v-show="activeSection === 'producten'">
+      <nldd-simple-section padding-top="8" v-show="activeSection === 'producten'">
         <nldd-title slot="header" size="3">
           <h2>Onze producten</h2>
           <nldd-button
@@ -117,14 +99,13 @@ function onTabChange(event) {
             :key="product.id"
             :product="product"
             :status="statuses[product.id]"
-            @open="selectedProduct = $event"
           />
         </nldd-collection>
       </nldd-simple-section>
 
       <nldd-simple-section v-show="activeSection === 'team'">
-        <nldd-title slot="header" size="3">
-          <h2>Wie zijn wij</h2>
+        <nldd-title slot="header" size="1">
+          <h1>Wie zijn wij</h1>
           <span slot="subtitle">Het innovatieteam van het Ministerie van Financiën</span>
         </nldd-title>
 
@@ -171,13 +152,5 @@ function onTabChange(event) {
         </nldd-container>
       </nldd-page-footer>
     </nldd-page>
-
-    <Teleport to="body">
-      <ProductSheet
-        :product="selectedProduct"
-        :status="selectedProduct ? statuses[selectedProduct.id] : 'unknown'"
-        @close="selectedProduct = null"
-      />
-    </Teleport>
   </nldd-app-view>
 </template>

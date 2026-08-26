@@ -12,21 +12,18 @@ import '@nldd/design-system/button';
 import '@nldd/design-system/card';
 import '@nldd/design-system/collection';
 import '@nldd/design-system/container';
-import '@nldd/design-system/hero';
 import '@nldd/design-system/image';
+import '@nldd/design-system/menu-bar';
+import '@nldd/design-system/menu-bar-item';
 import '@nldd/design-system/page';
 import '@nldd/design-system/page-footer';
 import '@nldd/design-system/rich-text';
-import '@nldd/design-system/sheet';
 import '@nldd/design-system/simple-section';
 import '@nldd/design-system/skip-link';
 import '@nldd/design-system/spacer';
-import '@nldd/design-system/tab-bar';
-import '@nldd/design-system/tag';
 import '@nldd/design-system/text';
 import '@nldd/design-system/title';
 import '@nldd/design-system/top-navigation-bar';
-import '@nldd/design-system/top-title-bar';
 
 // CSS variables + the Rijksoverheid fonts. RijksSans is licensed for
 // Rijksoverheid publications and parties working on their behalf; outside that
