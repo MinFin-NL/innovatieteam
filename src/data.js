@@ -130,7 +130,7 @@ export const TEAM = [
   {
     id: 'yasmine',
     name: 'Yasmine Uaali',
-    role: 'UI/UX Design Stagiaire',
+    role: 'UI/UX Designer',
     photo: 'people/yasmine_uaali.jpg',
   },
 ];
