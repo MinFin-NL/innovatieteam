@@ -1,8 +1,17 @@
 <script setup>
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 
-import { PRODUCTS, SERVICES, SERVICE_INBRENG, TEAM } from './data.js';
+import {
+  AGILE_PRINCIPES,
+  FASES,
+  KANBAN_BOARD,
+  PRODUCTS,
+  SERVICES,
+  SERVICE_INBRENG,
+  TEAM,
+} from './data.js';
 import { pingUrl } from './ping.js';
+import PhaseFlow from './components/PhaseFlow.vue';
 import ProductCard from './components/ProductCard.vue';
 import ServiceCard from './components/ServiceCard.vue';
 import TeamMember from './components/TeamMember.vue';
@@ -10,6 +19,7 @@ import TeamMember from './components/TeamMember.vue';
 const TABS = [
   { id: 'producten', label: 'Producten', icon: 'square-grid-2x2' },
   { id: 'services', label: 'Services', icon: 'handshake' },
+  { id: 'werkwijze', label: 'Onze werkwijze', icon: 'arrow-clockwise' },
   { id: 'team', label: 'Wie zijn wij', icon: 'person-2' },
 ];
 
@@ -157,6 +167,61 @@ onUnmounted(() => clearInterval(interval));
                 v-for="item in SERVICE_INBRENG.optioneel"
                 :key="item"
                 :text="item"
+              ></nldd-tag>
+            </nldd-container>
+          </nldd-container>
+        </nldd-card>
+      </nldd-simple-section>
+
+      <nldd-simple-section v-show="activeSection === 'werkwijze'">
+        <nldd-title slot="header" size="1">
+          <h1>Onze werkwijze</h1>
+          <span slot="subtitle">
+            Van idee naar dienst in drie stappen, agile uitgevoerd — en na elke stap
+            een bewuste keuze om door te gaan of te stoppen.
+          </span>
+          <nldd-button
+            v-if="KANBAN_BOARD.url"
+            slot="end"
+            :href="KANBAN_BOARD.url"
+            target="_blank"
+            variant="accent-filled"
+            size="sm"
+            text="Kanban-bord"
+            end-icon="square-arrow-right-top"
+            accessible-label="Ons Kanban-bord in Azure DevOps openen"
+          ></nldd-button>
+          <nldd-button
+            v-else
+            slot="end"
+            variant="neutral-tinted"
+            size="sm"
+            disabled
+            text="Kanban-bord"
+            accessible-label="Kanban-bord nog niet beschikbaar"
+          ></nldd-button>
+        </nldd-title>
+
+        <PhaseFlow :fases="FASES" />
+
+        <nldd-spacer size="32"></nldd-spacer>
+
+        <nldd-card>
+          <nldd-container padding="24" gap="8">
+            <nldd-title size="3">
+              <span slot="overline">Hoe we werken</span>
+              <h3>Wij werken agile</h3>
+            </nldd-title>
+            <nldd-text size="sm" color="secondary">
+              Binnen elke fase werken we in korte sprints: steeds iets werkends
+              opleveren, feedback ophalen bij de mensen die het gebruiken en de
+              volgende sprint daarop aanpassen. De klant zit bij ons aan tafel.
+            </nldd-text>
+            <nldd-container layout="wrap" gap="8">
+              <nldd-tag
+                v-for="principe in AGILE_PRINCIPES"
+                :key="principe"
+                :text="principe"
               ></nldd-tag>
             </nldd-container>
           </nldd-container>

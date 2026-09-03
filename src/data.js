@@ -216,3 +216,68 @@ export const SERVICE_INBRENG = {
   vereist: ['Kaders', 'Data', 'Eigenaarschap', 'Budget'],
   optioneel: ['Capaciteit'],
 };
+
+// De vaste route van idee naar dienst. Elke fase beantwoordt één vraag en is een
+// go/no-go moment: pas als het antwoord er is gaan we door, of stoppen we bewust.
+export const FASES = [
+  {
+    id: 'poc',
+    stap: 1,
+    name: 'Proof of Concept',
+    afkorting: 'PoC',
+    vraag: 'Werkt het technisch?',
+    description:
+      'Het kleinst mogelijke bewijs dat de techniek doet wat we hopen. Nog geen product, wel een werkend voorbeeld dat de grootste onzekerheid wegneemt.',
+    activiteiten: [
+      'De kleinste werkende opzet bouwen met de kerntechniek',
+      'De grootste technische risico’s vroeg uitproberen',
+      'Data, privacy, security en architectuur aftasten',
+      'Besluiten: door naar de Proof of Value, of stoppen',
+    ],
+  },
+  {
+    id: 'pov',
+    stap: 2,
+    name: 'Proof of Value',
+    afkorting: 'PoV',
+    vraag: 'Levert het waarde op?',
+    description:
+      'We bouwen een Minimum Viable Product (MVP): de kleinste versie die een collega écht kan gebruiken. Daarmee meten we de waarde met vooraf afgesproken criteria, niet op gevoel.',
+    activiteiten: [
+      'Een MVP bouwen dat collega’s in hun eigen werk gebruiken',
+      'Vooraf criteria afspreken en de resultaten meten',
+      'Feedback ophalen bij gebruikers en het MVP bijsturen',
+      'Een businesscase opstellen voor het besluit over opschalen',
+    ],
+  },
+  {
+    id: 'pilot',
+    stap: 3,
+    name: 'Pilot',
+    afkorting: 'Pilot',
+    vraag: 'Kan het opschalen?',
+    description:
+      'We bouwen het MVP uit tot een productierijp systeem en draaien dat mee in de praktijk bij een directie of team. Hier blijkt of het ook buiten het Concept Lab overeind blijft.',
+    activiteiten: [
+      'Het MVP uitbouwen tot een productierijp systeem',
+      'Meedraaien in de praktijk bij een directie of team',
+      'Beheer, ondersteuning en opleiding inrichten',
+      'Formeel toetsen met CISO, CPO en EA en overdragen',
+    ],
+  },
+];
+
+// Hoe we het werk organiseren: agile, in korte cycli, samen met de klant.
+export const AGILE_PRINCIPES = [
+  'Korte sprints',
+  'Werkend product boven documentatie',
+  'Klant aan tafel',
+  'Continu leren en verbeteren',
+  'Transparant bord',
+  'Bewust stoppen mag',
+];
+
+// Ons Kanban-bord in Azure DevOps; URL via pipelinevariabele URL_DEVOPS_BOARD.
+export const KANBAN_BOARD = {
+  url: cleanUrl(import.meta.env.VITE_URL_DEVOPS_BOARD),
+};
