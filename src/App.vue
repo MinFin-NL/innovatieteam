@@ -1,13 +1,15 @@
 <script setup>
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 
-import { PRODUCTS, TEAM } from './data.js';
+import { PRODUCTS, SERVICES, SERVICE_INBRENG, TEAM } from './data.js';
 import { pingUrl } from './ping.js';
 import ProductCard from './components/ProductCard.vue';
+import ServiceCard from './components/ServiceCard.vue';
 import TeamMember from './components/TeamMember.vue';
 
 const TABS = [
   { id: 'producten', label: 'Producten', icon: 'square-grid-2x2' },
+  { id: 'services', label: 'Services', icon: 'handshake' },
   { id: 'team', label: 'Wie zijn wij', icon: 'person-2' },
 ];
 
@@ -101,6 +103,64 @@ onUnmounted(() => clearInterval(interval));
             :status="statuses[product.id]"
           />
         </nldd-collection>
+      </nldd-simple-section>
+
+      <nldd-simple-section v-show="activeSection === 'services'">
+        <nldd-title slot="header" size="1">
+          <h1>Onze services</h1>
+          <span slot="subtitle">
+            Drie manieren waarop wij directies en teams helpen om van idee naar
+            bewezen waarde te komen.
+          </span>
+        </nldd-title>
+
+        <nldd-rich-text>
+          <p>
+            Het innovatieteam helpt directies sneller besluiten of een idee relevant
+            is, waarde oplevert en kan uitgroeien tot een dienst voor collega's. Elke
+            service is los in te zetten, maar ze vormen samen ook een route: van
+            verkennen, via scherpstellen, naar toetsen in de praktijk.
+          </p>
+        </nldd-rich-text>
+
+        <nldd-spacer size="24"></nldd-spacer>
+
+        <nldd-container gap="24">
+          <ServiceCard
+            v-for="service in SERVICES"
+            :key="service.id"
+            :service="service"
+          />
+        </nldd-container>
+
+        <nldd-spacer size="32"></nldd-spacer>
+
+        <nldd-card>
+          <nldd-container padding="24" gap="8">
+            <nldd-title size="3">
+              <span slot="overline">Samenwerking</span>
+              <h3>Wat breng jij mee?</h3>
+            </nldd-title>
+            <nldd-text color="secondary">
+              Bij elke service werken we samen. Van jou vragen we in ieder geval:
+            </nldd-text>
+            <nldd-container layout="wrap" gap="8">
+              <nldd-tag
+                v-for="item in SERVICE_INBRENG.vereist"
+                :key="item"
+                :text="item"
+              ></nldd-tag>
+            </nldd-container>
+            <nldd-text size="sm" color="secondary">En eventueel:</nldd-text>
+            <nldd-container layout="wrap" gap="8">
+              <nldd-tag
+                v-for="item in SERVICE_INBRENG.optioneel"
+                :key="item"
+                :text="item"
+              ></nldd-tag>
+            </nldd-container>
+          </nldd-container>
+        </nldd-card>
       </nldd-simple-section>
 
       <nldd-simple-section v-show="activeSection === 'team'">

@@ -134,3 +134,85 @@ export const TEAM = [
     photo: 'people/yasmine_uaali.jpg',
   },
 ];
+
+// De drie innovatieservices die het team aanbiedt aan directies en teams.
+export const SERVICES = [
+  {
+    id: 'innovatieverkenning',
+    name: 'Innovatieverkenning',
+    icon: 'binoculars',
+    description:
+      'Innovatieverkenning helpt directies en teams om grip te krijgen op nieuwe technologieën en ontwikkelingen, en te bepalen of en hoe deze relevant zijn voor hun werk en voor collega’s binnen Financiën.',
+    wanneer: [
+      'Er is een beleids- of uitvoeringsvraagstuk, maar nog geen duidelijke oplossingsrichting',
+      'Nieuwe technologie (bijv. generatieve AI of low-code) roept kansen én vragen op',
+      'Je wilt voorkomen dat je investeert in iets dat niet aansluit op de organisatie',
+    ],
+    watWijDoen: [
+      'Markt- en technologieverkenning (o.a. Tech Radar, deep dives)',
+      'Vertalen van technologische ontwikkelingen naar concrete kansen voor Financiën',
+      'Identificeren van mogelijke use cases voor collega’s',
+      'Delen van inzichten via presentaties en korte rapportages',
+    ],
+    opbrengst: [
+      'Duidelijk antwoord op de vraag: is dit relevant voor onze collega’s?',
+      'Een gedeeld beeld van kansen en risico’s',
+      'Onderbouwde input voor een vervolgstap (of juist een bewuste stop)',
+    ],
+    voorbeeld: 'Quantum Computing',
+  },
+  {
+    id: 'waarde-ontwerp',
+    name: 'Waarde ontwerp',
+    icon: 'lightbulb',
+    description:
+      'Waarde ontwerp met de klant is een intensieve samenwerking waarin we samen met directies en teams hun processen, knelpunten en behoeften scherp in kaart brengen, en deze vertalen naar kansrijke oplossingsrichtingen. Dit gaat nadrukkelijk niet over technologie, maar over waarde voor collega’s.',
+    wanneer: [
+      'Het probleem is nog niet scherp genoeg',
+      'Er zijn meerdere knelpunten of belangen',
+      'Er is behoefte aan gezamenlijke denkkracht voordat er gebouwd wordt',
+    ],
+    watWijDoen: [
+      'In kaart brengen van processen, pijnpunten en gebruikersbehoeften',
+      'Gesprekken en werksessies met beleidsmedewerkers en stakeholders',
+      'Vertalen van inzichten naar duidelijke probleemdefinities en oplossingsrichtingen',
+      'Toetsen van overlap in behoeften tussen verschillende klanten/directies',
+    ],
+    opbrengst: [
+      'Een scherp en gedeeld klantprobleem',
+      'Heldere keuzes: welke oplossing levert echt waarde?',
+      'Een stevige basis voor een Proof of Concept of Value',
+    ],
+    voorbeeld: null,
+  },
+  {
+    id: 'concept-lab',
+    name: 'Concept Lab',
+    icon: 'sparkles',
+    description:
+      'Het Concept Lab is de omgeving waarin ideeën snel, gecontroleerd en verantwoord worden getest, voordat ze uitgroeien tot een dienst voor de organisatie.',
+    wanneer: [
+      'Er is een concreet idee of oplossingsrichting',
+      'Je wilt weten of iets technisch haalbaar én waardevol is',
+      'Er is behoefte aan bewijs vóór opschaling of investering',
+    ],
+    watWijDoen: [
+      'Ontwikkelen van Proof of Concept (werkt het technisch?)',
+      'Uitvoeren van Proof of Value (levert het waarde op voor collega’s?)',
+      'Opzetten en begeleiden van pilots in de praktijk',
+      'Beleids-, privacy- en securitytoets (CISO, CPO, EA) vanaf de start',
+    ],
+    opbrengst: [
+      'Bewezen inzicht in haalbaarheid, waarde en randvoorwaarden',
+      'Minder risico’s en verrassingen bij opschaling',
+      'Een duidelijke basis voor besluitvorming: doorgaan naar dienst of stoppen',
+    ],
+    voorbeeld: 'FinChat',
+  },
+];
+
+// Wat de klant zelf meebrengt; geldt voor alle drie de services.
+export const SERVICE_INBRENG = {
+  vereist: ['Kaders', 'Data', 'Eigenaarschap', 'Budget'],
+  optioneel: ['Capaciteit'],
+};
