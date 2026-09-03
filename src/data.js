@@ -244,7 +244,7 @@ export const FASES = [
     description:
       'We bouwen een Minimum Viable Product (MVP): de kleinste versie die een collega écht kan gebruiken. Daarmee meten we de waarde met vooraf afgesproken criteria, niet op gevoel.',
     activiteiten: [
-      'Een MVP bouwen dat collega’s in hun eigen werk gebruiken',
+      'Een MVP bouwen die collega’s in hun eigen werk gebruiken',
       'Vooraf criteria afspreken en de resultaten meten',
       'Feedback ophalen bij gebruikers en het MVP bijsturen',
       'Een businesscase opstellen voor het besluit over opschalen',
