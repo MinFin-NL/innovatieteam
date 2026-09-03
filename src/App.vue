@@ -3,6 +3,7 @@ import { computed, onMounted, onUnmounted, ref } from 'vue';
 
 import {
   AGILE_PRINCIPES,
+  EXPERIMENT_STAPPEN,
   FASES,
   KANBAN_BOARD,
   PRODUCTS,
@@ -12,9 +13,14 @@ import {
 } from './data.js';
 import { pingUrl } from './ping.js';
 import PhaseFlow from './components/PhaseFlow.vue';
+import PhaseZoom from './components/PhaseZoom.vue';
 import ProductCard from './components/ProductCard.vue';
 import ServiceCard from './components/ServiceCard.vue';
 import TeamMember from './components/TeamMember.vue';
+
+// De fase die we uitvergroten; uit FASES gehaald zodat naam en nummer niet
+// hardcoded in de template staan.
+const EXPERIMENT_FASE = FASES.find((fase) => fase.id === 'experimenteren');
 
 const TABS = [
   { id: 'producten', label: 'Producten', icon: 'square-grid-2x2' },
@@ -177,7 +183,7 @@ onUnmounted(() => clearInterval(interval));
         <nldd-title slot="header" size="1">
           <h1>Onze werkwijze</h1>
           <span slot="subtitle">
-            Van idee naar dienst in drie stappen, agile uitgevoerd — en na elke stap
+            Van idee naar dienst in drie fasen, agile uitgevoerd — en na elke fase
             een bewuste keuze om door te gaan of te stoppen.
           </span>
           <nldd-button
@@ -202,7 +208,18 @@ onUnmounted(() => clearInterval(interval));
           ></nldd-button>
         </nldd-title>
 
-        <PhaseFlow :fases="FASES" />
+        <!-- Fasen en uitvergroting zitten in één container met gap="0":
+             nldd-simple-section zet standaard ruimte tussen zijn kinderen, en
+             juist hier moet het punt van het paneel de Experimenteren-kaart
+             raken — anders leest het weer als een los hoofdstuk. -->
+        <nldd-container gap="0">
+          <PhaseFlow :fases="FASES" label="Fase" variant="fase" />
+          <PhaseZoom
+            :fases="FASES"
+            :fase="EXPERIMENT_FASE"
+            :stappen="EXPERIMENT_STAPPEN"
+          />
+        </nldd-container>
 
         <nldd-spacer size="32"></nldd-spacer>
 

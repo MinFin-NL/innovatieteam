@@ -217,12 +217,60 @@ export const SERVICE_INBRENG = {
   optioneel: ['Capaciteit'],
 };
 
-// De vaste route van idee naar dienst. Elke fase beantwoordt één vraag en is een
-// go/no-go moment: pas als het antwoord er is gaan we door, of stoppen we bewust.
+// De route van idee naar dienst in drie fasen. Elke fase beantwoordt één vraag
+// en eindigt met een bewuste keuze: door naar de volgende fase, of stoppen.
+// `background` tilt Experimenteren visueel op, omdat de kaartenrij eronder
+// inzoomt op precies die fase.
 export const FASES = [
   {
+    id: 'onderzoeken',
+    nummer: 1,
+    name: 'Onderzoeken',
+    icon: 'binoculars',
+    vraag: 'Wat speelt hier, en is het de moeite waard?',
+    description:
+      'Voordat we bouwen snappen we het probleem. We verkennen wat de technologie kan én brengen samen met de klant het klantprobleem scherp in beeld.',
+    activiteiten: [
+      'Technologieverkenning',
+      'Processen en knelpunten',
+      'Gedeeld klantprobleem',
+      'Go/no-go op het idee',
+    ],
+  },
+  {
+    id: 'experimenteren',
+    nummer: 2,
+    name: 'Experimenteren',
+    icon: 'sparkles',
+    background: 'tinted',
+    vraag: 'Werkt het, en levert het waarde op?',
+    description:
+      'In het Concept Lab testen we het idee snel, gecontroleerd en verantwoord — in drie stappen, met na elke stap een bewuste keuze om door te gaan of te stoppen.',
+    activiteiten: ['Proof of Concept', 'Proof of Value', 'Pilot'],
+  },
+  {
+    id: 'integreren',
+    nummer: 3,
+    name: 'Integreren',
+    icon: 'check-mark-circle',
+    vraag: 'Hoe wordt dit staand werk?',
+    description:
+      'Wat zich bewezen heeft hoort niet bij het innovatieteam thuis. We dragen het over aan een vaste eigenaar, met beheer, ondersteuning en opleiding geregeld.',
+    activiteiten: [
+      'Overdracht aan de lijn',
+      'Beheer en support',
+      'CISO-, CPO- en EA-toets',
+      'Terugkijken en leren',
+    ],
+  },
+];
+
+// De drie stappen binnen de fase Experimenteren. Fijnmaziger dan de fasen
+// hierboven: dit is het werk in het Concept Lab, met na elke stap een go/no-go.
+export const EXPERIMENT_STAPPEN = [
+  {
     id: 'poc',
-    stap: 1,
+    nummer: 1,
     name: 'Proof of Concept',
     afkorting: 'PoC',
     vraag: 'Werkt het technisch?',
@@ -237,7 +285,7 @@ export const FASES = [
   },
   {
     id: 'pov',
-    stap: 2,
+    nummer: 2,
     name: 'Proof of Value',
     afkorting: 'PoV',
     vraag: 'Levert het waarde op?',
@@ -252,7 +300,7 @@ export const FASES = [
   },
   {
     id: 'pilot',
-    stap: 3,
+    nummer: 3,
     name: 'Pilot',
     afkorting: 'Pilot',
     vraag: 'Kan het opschalen?',
@@ -261,8 +309,8 @@ export const FASES = [
     activiteiten: [
       'Het MVP uitbouwen tot een productierijp systeem',
       'Meedraaien in de praktijk bij een directie of team',
-      'Beheer, ondersteuning en opleiding inrichten',
-      'Formeel toetsen met CISO, CPO en EA en overdragen',
+      'Toetsen of het buiten het Concept Lab overeind blijft: beheerlast, kosten, support',
+      'Besluiten: overdragen aan de organisatie, of stoppen',
     ],
   },
 ];

@@ -1,5 +1,7 @@
 <script setup>
-// De drie fasen naast elkaar met een pijl ertussen, als één horizontale route.
+// Een route van kaarten naast elkaar met een pijl ertussen. Wordt twee keer
+// gebruikt in de werkwijze: voor de drie fasen en voor de drie stappen binnen
+// Experimenteren. `label` en `variant` bepalen welke van de twee.
 //
 // Dit is het enige component met eigen CSS. De NLDD-containers verdelen ruimte
 // naar inhoud, en dat is hier precies niet de bedoeling: de kolommen moeten
@@ -8,9 +10,13 @@
 // wel, en houdt de kaarten meteen even hoog.
 import PhaseCard from './PhaseCard.vue';
 
-const props = defineProps({ fases: { type: Array, required: true } });
+const props = defineProps({
+  fases: { type: Array, required: true },
+  label: { type: String, default: 'Stap' },
+  variant: { type: String, default: 'stap' },
+});
 
-// Eén `1fr` per fase, met een `auto` pijlkolom ertussen. Berekend in plaats van
+// Eén `1fr` per kaart, met een `auto` pijlkolom ertussen. Berekend in plaats van
 // hardcoded, zodat een vierde fase toevoegen in data.js genoeg is.
 const columns = props.fases.map(() => '1fr').join(' auto ');
 </script>
@@ -18,12 +24,12 @@ const columns = props.fases.map(() => '1fr').join(' auto ');
 <template>
   <div class="flow" :style="{ gridTemplateColumns: columns }">
     <template v-for="(fase, index) in fases" :key="fase.id">
-      <!-- De volgorde blijkt al uit "Stap 1/2/3" in de kaart zelf, dus de pijl
-           is decoratief en blijft weg uit de toegankelijkheidsboom. -->
+      <!-- De volgorde blijkt al uit "Fase/Stap 1/2/3" in de kaart zelf, dus de
+           pijl is decoratief en blijft weg uit de toegankelijkheidsboom. -->
       <div v-if="index > 0" class="arrow" aria-hidden="true">
         <nldd-icon name="arrow-right" size="24" color="accent"></nldd-icon>
       </div>
-      <PhaseCard :fase="fase" />
+      <PhaseCard :fase="fase" :label="label" :variant="variant" />
     </template>
   </div>
 </template>
