@@ -1,10 +1,7 @@
-// NLDD Design System — Nederlandse Digitale Dienst (MinBZK).
-//
-// The components are imported one by one through their subpath exports rather
-// than as `import '@nldd/design-system'`: the barrel registers all ~115
-// elements, including the CodeMirror-backed editors, which costs ~1.4 MB of
-// JavaScript this dashboard never runs. Add a line here when a template starts
-// using a new nldd-* element.
+// NLDD components are imported one by one. The '@nldd/design-system' barrel
+// registers all ~115 elements, CodeMirror editors included, about 1.4 MB of JS
+// this dashboard never runs. Add a line here when a template uses a new nldd-*
+// element.
 import '@nldd/design-system/app-view';
 import '@nldd/design-system/avatar';
 import '@nldd/design-system/badge';

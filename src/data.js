@@ -1,12 +1,11 @@
 // Products built by the Innovatieteam. `url` is pinged for a live status; a
-// null `url` means the tool is not yet reachable ("Onbekend").
-// URLs are injected at build time via VITE_URL_* env vars (Azure DevOps secret group: innovatieteam-secrets).
+// null `url` shows the tool as "Onbekend". URLs come in at build time through
+// the VITE_URL_* variables (Azure DevOps variable group innovatieteam-secrets).
+// Everything VITE_* ends up in the public JS bundle, so it is not a secret.
 
-// Normalise a build-time env var into a usable URL or null. Azure DevOps leaves
-// undefined pipeline variables as the literal unsubstituted string "$(NAME)",
-// which is truthy — so `env || null` is not enough. We only accept absolute
-// http(s) URLs; anything else (empty, whitespace, "$(...)" placeholder) is null
-// so the tool shows as "Onbekend" instead of falsely pinging the app origin.
+// Azure DevOps passes an undefined pipeline variable through as the literal
+// string "$(NAME)", so `env || null` is not enough. Only absolute http(s) URLs
+// are kept; anything else becomes null instead of pinging the app's own origin.
 function cleanUrl(value) {
   const v = (value || '').trim();
   if (!/^https?:\/\//i.test(v)) return null;
@@ -17,66 +16,44 @@ export const PRODUCTS = [
   {
     id: 'findocs',
     name: 'FinDocs',
-    description: 'AI-ondersteunde hulp bij het invullen van formulieren en aanvragen.',
+    description: 'Helpt met AI bij het invullen van formulieren en aanvragen.',
     url: cleanUrl(import.meta.env.VITE_URL_FINDOCS),
     icon: 'icons/findocs_logo.svg',
-    category: 'Formulieren',
   },
   {
     id: 'kasvisie',
     name: 'Kasvisie',
-    description: 'Inzicht in kasstromen en financiële prognoses voor de overheid.',
+    description: 'Maakt kasstromen en financiële prognoses van de overheid inzichtelijk.',
     url: cleanUrl(import.meta.env.VITE_URL_KASVISIE),
     icon: 'icons/kasvisie_logo.svg',
-    category: 'Financiën',
   },
   {
     id: 'innovatieplatform',
     name: 'Innovatieplatform',
-    description: 'Centraal platform voor het delen en beheren van innovatie-ideeën.',
+    description: 'Hier delen en beheren we innovatie-ideeën.',
     url: cleanUrl(import.meta.env.VITE_URL_INNOVATIEPLATFORM),
     icon: 'icons/innovatieplatform_logo.svg',
-    category: 'Platform',
   },
   {
     id: 'beleidsassistent',
     name: 'Beleids Evaluaties Agent',
-    description: 'AI-assistent die beleidsmakers ondersteunt bij analyses en adviezen.',
+    description: 'Helpt beleidsmakers met analyses en adviezen.',
     url: cleanUrl(import.meta.env.VITE_URL_BELEIDSASSISTENT),
     icon: 'icons/beleidsassistent_logo.svg',
-    category: 'Beleid',
-  },
-  {
-    id: 'finchat',
-    name: 'FinChat',
-    description: 'Chatbot voor financiële vragen binnen het Ministerie van Financiën.',
-    url: cleanUrl(import.meta.env.VITE_URL_FINCHAT),
-    icon: 'icons/finchat_logo.svg',
-    category: 'Communicatie',
-  },
-  {
-    id: 'finchat-acceptatie',
-    name: 'FinChat - Acceptatie',
-    description: 'Testomgeving van FinChat',
-    url: cleanUrl(import.meta.env.VITE_URL_FINCHAT_ACCEPTATIE),
-    icon: 'icons/finchat_acceptatie_logo.svg',
-    category: 'Communicatie',
   },
   {
     id: 'finchat-innovatie',
     name: 'FinChat - Innovatie',
-    description: 'Experimentele versie van FinChat',
+    description: 'Experimentele versie van FinChat.',
     url: cleanUrl(import.meta.env.VITE_URL_FINCHAT_INNOVATIE),
     icon: 'icons/finchat_innovatie_logo.svg',
-    category: 'Communicatie',
   },
   {
     id: 'kamerdebatai',
     name: 'KamerDebatAI',
-    description: 'Live transcriptie en vraagextractie tijdens Kamerdebatten.',
+    description: 'Schrijft Kamerdebatten live uit en haalt de gestelde vragen eruit.',
     url: cleanUrl(import.meta.env.VITE_URL_KAMERDEBATAI),
     icon: 'icons/kamerdebatai_logo.svg',
-    category: 'Communicatie',
   },
   {
     id: 'normnet',
@@ -84,15 +61,29 @@ export const PRODUCTS = [
     description: 'Auditeerbare procesautomatisering: een petrinet bewaakt de processtappen, logische normen bewaken wat is toegestaan.',
     url: cleanUrl(import.meta.env.VITE_URL_NORMNET),
     icon: 'icons/normnet_logo.svg',
-    category: 'Procesautomatisering',
+  },
+];
+
+// Tools we have stopped. They get no URL and are not pinged; the dashboard shows
+// them under "Kerkhof" on the products tab.
+export const RETIRED_PRODUCTS = [
+  {
+    id: 'finchat',
+    name: 'FinChat - Productie',
+    description: 'Chatbot voor financiële vragen van collega’s bij Financiën.',
+    icon: 'icons/finchat_logo.svg',
+  },
+  {
+    id: 'finchat-acceptatie',
+    name: 'FinChat - Acceptatie',
+    description: 'Testomgeving van FinChat.',
+    icon: 'icons/finchat_acceptatie_logo.svg',
   },
   {
     id: 'note',
     name: 'Note',
-    description: 'AI-ondersteunde notities voor het snel vastleggen en structureren van informatie.',
-    url: cleanUrl(import.meta.env.VITE_URL_NOTE),
+    description: 'Notities snel vastleggen en ordenen, met hulp van AI.',
     icon: 'icons/note_logo.svg',
-    category: 'Productiviteit',
   },
 ];
 
@@ -135,7 +126,8 @@ export const TEAM = [
   },
 ];
 
-// De drie innovatieservices die het team aanbiedt aan directies en teams.
+// De drie innovatieservices voor directies en teams. De teksten komen letterlijk
+// uit de deck 'Eerste opzet - Innovatieservices'; pas ze daar samen aan.
 export const SERVICES = [
   {
     id: 'innovatieverkenning',
@@ -217,10 +209,8 @@ export const SERVICE_INBRENG = {
   optioneel: ['Capaciteit'],
 };
 
-// De route van idee naar dienst in drie fasen. Elke fase beantwoordt één vraag
-// en eindigt met een bewuste keuze: door naar de volgende fase, of stoppen.
-// `background` tilt Experimenteren visueel op, omdat de kaartenrij eronder
-// inzoomt op precies die fase.
+// De route van idee naar dienst. Elke fase eindigt met een go/no-go.
+// `background` markeert Experimenteren, omdat PhaseZoom op die fase inzoomt.
 export const FASES = [
   {
     id: 'onderzoeken',
@@ -229,7 +219,7 @@ export const FASES = [
     icon: 'binoculars',
     vraag: 'Wat speelt hier, en is het de moeite waard?',
     description:
-      'Voordat we bouwen snappen we het probleem. We verkennen wat de technologie kan én brengen samen met de klant het klantprobleem scherp in beeld.',
+      'Eerst zoeken we uit wat de technologie kan en brengen we samen met de klant het probleem in kaart. Pas daarna bouwen we iets.',
     activiteiten: [
       'Technologieverkenning',
       'Processen en knelpunten',
@@ -245,7 +235,7 @@ export const FASES = [
     background: 'tinted',
     vraag: 'Werkt het, en levert het waarde op?',
     description:
-      'In het Concept Lab testen we het idee snel, gecontroleerd en verantwoord — in drie stappen, met na elke stap een bewuste keuze om door te gaan of te stoppen.',
+      'In het Concept Lab testen we het idee snel, gecontroleerd en verantwoord. Dat gaat in drie stappen, die hieronder staan.',
     activiteiten: ['Proof of Concept', 'Proof of Value', 'Pilot'],
   },
   {
@@ -255,7 +245,7 @@ export const FASES = [
     icon: 'check-mark-circle',
     vraag: 'Hoe wordt dit staand werk?',
     description:
-      'Wat zich bewezen heeft hoort niet bij het innovatieteam thuis. We dragen het over aan een vaste eigenaar, met beheer, ondersteuning en opleiding geregeld.',
+      'Wat werkt, dragen we over aan een vaste eigenaar in de organisatie. Beheer, support en opleiding horen bij die overdracht.',
     activiteiten: [
       'Overdracht aan de lijn',
       'Beheer en support',
@@ -265,8 +255,7 @@ export const FASES = [
   },
 ];
 
-// De drie stappen binnen de fase Experimenteren. Fijnmaziger dan de fasen
-// hierboven: dit is het werk in het Concept Lab, met na elke stap een go/no-go.
+// De stappen binnen de fase Experimenteren (het werk in het Concept Lab).
 export const EXPERIMENT_STAPPEN = [
   {
     id: 'poc',
@@ -275,7 +264,7 @@ export const EXPERIMENT_STAPPEN = [
     afkorting: 'PoC',
     vraag: 'Werkt het technisch?',
     description:
-      'Het kleinst mogelijke bewijs dat de techniek doet wat we hopen. Nog geen product, wel een werkend voorbeeld dat de grootste onzekerheid wegneemt.',
+      'Een zo klein mogelijk werkend voorbeeld dat laat zien of de techniek doet wat we hopen. Zo halen we de grootste onzekerheid er vroeg uit.',
     activiteiten: [
       'De kleinste werkende opzet bouwen met de kerntechniek',
       'De grootste technische risico’s vroeg uitproberen',
@@ -290,7 +279,7 @@ export const EXPERIMENT_STAPPEN = [
     afkorting: 'PoV',
     vraag: 'Levert het waarde op?',
     description:
-      'We bouwen een Minimum Viable Product (MVP): de kleinste versie die een collega écht kan gebruiken. Daarmee meten we de waarde met vooraf afgesproken criteria, niet op gevoel.',
+      'We bouwen een Minimum Viable Product (MVP): de kleinste versie waarmee een collega echt kan werken. Of het waarde oplevert, meten we aan criteria die we vooraf afspreken.',
     activiteiten: [
       'Een MVP bouwen die collega’s in hun eigen werk gebruiken',
       'Vooraf criteria afspreken en de resultaten meten',
@@ -315,7 +304,6 @@ export const EXPERIMENT_STAPPEN = [
   },
 ];
 
-// Hoe we het werk organiseren: agile, in korte cycli, samen met de klant.
 export const AGILE_PRINCIPES = [
   'Korte sprints',
   'Werkend product boven documentatie',
@@ -325,7 +313,7 @@ export const AGILE_PRINCIPES = [
   'Bewust stoppen mag',
 ];
 
-// Ons Kanban-bord in Azure DevOps; URL via pipelinevariabele URL_DEVOPS_BOARD.
+// Ons Kanban-bord in Azure DevOps (pipelinevariabele URL_DEVOPS_BOARD).
 export const KANBAN_BOARD = {
   url: cleanUrl(import.meta.env.VITE_URL_DEVOPS_BOARD),
 };

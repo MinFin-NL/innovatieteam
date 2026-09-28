@@ -1,8 +1,6 @@
 <script setup>
-// Eén innovatieservice als kaart: omschrijving plus de drie vaste kolommen uit
-// de servicebeschrijving (wanneer inzetten, wat doen wij, wat levert het op).
-// nldd-title heeft geen `start`-slot, dus het service-icoon staat in een eigen
-// row-container boven de titel.
+// Eén innovatieservice: omschrijving plus de drie kolommen uit de deck.
+// nldd-title heeft geen `start`-slot, vandaar de row-container voor het icoon.
 defineProps({ service: { type: Object, required: true } });
 
 const COLUMNS = [

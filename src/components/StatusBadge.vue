@@ -1,14 +1,14 @@
 <script setup>
 import { computed } from 'vue';
 
-// Maps a ping status onto an NLDD semantic badge colour. `pulse` grows a ring
-// out of the badge for something happening right now — it respects
-// prefers-reduced-motion on its own, so no media query is needed here.
+// Maps a ping status onto an NLDD badge colour. `pulse` already respects
+// prefers-reduced-motion.
 const STATUS = {
   up: { color: 'success', label: 'Online' },
   down: { color: 'critical', label: 'Offline' },
   checking: { color: 'warning', label: 'Controleren…' },
   unknown: { color: 'neutral', label: 'Onbekend' },
+  retired: { color: 'neutral', label: 'Gestopt' },
 };
 
 const props = defineProps({ status: { type: String, default: 'unknown' } });

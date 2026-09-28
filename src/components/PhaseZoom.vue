@@ -1,16 +1,11 @@
 <script setup>
-// De uitvergroting van één fase: de stappen die binnen die fase worden gezet.
+// Zoomt in op één fase: een paneel met de stappen binnen die fase, verbonden met
+// de fasekaart erboven door een trechter. Paneel en trechter hebben dezelfde tint
+// als een nldd-card met background="tinted", zodat ze met die kaart één vorm
+// maken. NLDD heeft hier geen component voor, vandaar de eigen CSS; kleur en
+// radius komen wel uit de design-system-tokens.
 //
-// Dit blok stond eerst als losse kop plus kaartenrij onder de fasen, met een
-// spacer ertussen — en las daardoor als een nieuw hoofdstuk in plaats van als
-// een uitvergroting. Wat er nu één object van maakt: het paneel deelt de tint
-// van de fasekaart waar het bij hoort, de kop staat bínnen het paneel, en twee
-// schuine vlakken waaieren uit van de onderrand van die kaart naar de volle
-// breedte van het paneel — het beeld van een vergrootglas.
-//
-// Eigen CSS is hier nodig omdat NLDD geen "uitvergroting van een kaart" kent;
-// de kleur- en radius-tokens komen wel uit het design system, zodat het paneel
-// exact dezelfde tint heeft als een nldd-card met background="tinted".
+// De default slot is de inleidende tekst in het paneel.
 import PhaseFlow from './PhaseFlow.vue';
 
 const props = defineProps({
@@ -21,10 +16,8 @@ const props = defineProps({
   label: { type: String, default: 'Fase' },
 });
 
-// Dezelfde kolomverdeling als PhaseFlow, zodat de trechter exact onder de
-// fasekaart begint in plaats van op een uitgerekende positie: het grid doet het
-// rekenwerk. Een fase op index i staat in kolom 2i+1 (de even kolommen zijn de
-// pijlen).
+// Dezelfde kolommen als PhaseFlow, zodat de trechter precies onder de fasekaart
+// begint. Fase i staat in kolom 2i+1; de even kolommen zijn de pijlen.
 const columns = props.fases.map(() => '1fr').join(' auto ');
 const index = props.fases.findIndex((f) => f.id === props.fase.id);
 const midColumn = 2 * index + 1;
@@ -32,8 +25,7 @@ const midColumn = 2 * index + 1;
 
 <template>
   <div class="zoom">
-    <!-- Puur decoratief: de relatie staat ook in de kop ("Binnen
-         Experimenteren"), dus dit blijft weg uit de toegankelijkheidsboom. -->
+    <!-- Decoratief: de kop "Binnen <fase>" zegt hetzelfde in tekst. -->
     <div class="funnel" :style="{ gridTemplateColumns: columns }" aria-hidden="true">
       <div class="ramp left" :style="{ gridColumn: `1 / ${midColumn}` }"></div>
       <div class="stem" :style="{ gridColumn: `${midColumn} / ${midColumn + 1}` }"></div>
@@ -45,15 +37,13 @@ const midColumn = 2 * index + 1;
         <nldd-container layout="row" gap="8" vertical-alignment="center">
           <nldd-icon name="arrow-down" size="20" color="accent"></nldd-icon>
           <nldd-title size="3">
-            <span slot="overline">{{ label }} {{ fase.nummer }} uitgevouwen</span>
+            <span slot="overline">{{ label }} {{ fase.nummer }} in detail</span>
             <h3>Binnen {{ fase.name }}</h3>
           </nldd-title>
         </nldd-container>
 
-        <nldd-text size="sm" color="secondary">
-          Experimenteren doen we in het Concept Lab, in drie stappen. Elke stap
-          beantwoordt één vraag en eindigt met een go/no-go: pas als het antwoord
-          er is gaan we door, of stoppen we bewust.
+        <nldd-text v-if="$slots.default" size="sm" color="secondary">
+          <slot></slot>
         </nldd-text>
 
         <PhaseFlow :fases="stappen" label="Stap" variant="stap" />
@@ -65,11 +55,10 @@ const midColumn = 2 * index + 1;
 <style scoped>
 .funnel {
   display: grid;
-  /* Dezelfde gap als PhaseFlow, zodat de kolommen samenvallen; de vlakken
-     steken 4px naar buiten om die gap dicht te lopen tot één doorlopend vlak. */
+  /* Dezelfde gap als PhaseFlow, zodat de kolommen samenvallen. De vlakken
+     steken 4px uit om die gap te dichten. */
   gap: 8px;
-  /* Hoog genoeg dat de schuinte als schuinte leest; bij 20px werd het een
-     rechte lijn en viel de verbinding weer weg. */
+  /* Bij 20px leest de schuinte als een rechte lijn. */
   height: 40px;
 }
 
@@ -95,8 +84,8 @@ const midColumn = 2 * index + 1;
   border-start-end-radius: 0;
 }
 
-/* Op smalle schermen stapelt PhaseFlow tot één kolom en heeft een trechter geen
-   betekenis meer; er blijft een smalle verbindende band over. */
+/* Op smalle schermen staat PhaseFlow in één kolom en heeft een trechter geen zin.
+   Er blijft een smalle band over die kaart en paneel verbindt. */
 @media (max-width: 900px) {
   .funnel {
     grid-template-columns: 1fr !important;

@@ -1,7 +1,6 @@
-/* The only stylesheet in the app: everything else comes from NLDD components.
-   NLDD's palette is built on light-dark() and follows the OS color scheme, but
-   the product logos in public/icons/ are mono-blue SVGs that have not been
-   audited against a dark surface yet. Pin the app to light until they are. */
+/* NLDD follows the OS colour scheme, but the product logos in public/icons/ are
+   dark blue and have not been checked on a dark background. Light only until
+   they are. */
 :root {
   color-scheme: light;
 }

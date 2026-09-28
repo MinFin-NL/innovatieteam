@@ -32,14 +32,10 @@ stages:
               IMAGE: $(IMAGE)
               RESOURCE_GROUP: $(RESOURCE_GROUP)
               VITE_URL_FINDOCS: $(URL_FINDOCS)
-              VITE_URL_OPSTELHULP: $(URL_OPSTELHULP)
               VITE_URL_KASVISIE: $(URL_KASVISIE)
               VITE_URL_INNOVATIEPLATFORM: $(URL_INNOVATIEPLATFORM)
               VITE_URL_BELEIDSASSISTENT: $(URL_BELEIDSASSISTENT)
-              VITE_URL_FINCHAT: $(URL_FINCHAT)
               VITE_URL_FINCHAT_INNOVATIE: $(URL_FINCHAT_INNOVATIE)
-              VITE_URL_FINCHAT_ACCEPTATIE: $(URL_FINCHAT_ACCEPTATIE)
-              VITE_URL_NOTE: $(URL_NOTE)
               VITE_URL_KAMERDEBATAI: $(URL_KAMERDEBATAI)
               VITE_URL_NORMNET: $(URL_NORMNET)
               VITE_URL_DEVOPS_BOARD: $(URL_DEVOPS_BOARD)
@@ -52,14 +48,10 @@ stages:
                 az acr login --name "${ACR_LOGIN_SERVER%%.*}"
                 docker build \
                   --build-arg VITE_URL_FINDOCS="$VITE_URL_FINDOCS" \
-                  --build-arg VITE_URL_OPSTELHULP="$VITE_URL_OPSTELHULP" \
                   --build-arg VITE_URL_KASVISIE="$VITE_URL_KASVISIE" \
                   --build-arg VITE_URL_INNOVATIEPLATFORM="$VITE_URL_INNOVATIEPLATFORM" \
                   --build-arg VITE_URL_BELEIDSASSISTENT="$VITE_URL_BELEIDSASSISTENT" \
-                  --build-arg VITE_URL_FINCHAT="$VITE_URL_FINCHAT" \
                   --build-arg VITE_URL_FINCHAT_INNOVATIE="$VITE_URL_FINCHAT_INNOVATIE" \
-                  --build-arg VITE_URL_FINCHAT_ACCEPTATIE="$VITE_URL_FINCHAT_ACCEPTATIE" \
-                  --build-arg VITE_URL_NOTE="$VITE_URL_NOTE" \
                   --build-arg VITE_URL_KAMERDEBATAI="$VITE_URL_KAMERDEBATAI" \
                   --build-arg VITE_URL_NORMNET="$VITE_URL_NORMNET" \
                   --build-arg VITE_URL_DEVOPS_BOARD="$VITE_URL_DEVOPS_BOARD" \

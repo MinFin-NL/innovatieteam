@@ -1,13 +1,10 @@
 <script setup>
-// Eén blok uit de werkwijze als kaart, in twee dichtheden. De werkwijze staat in
-// twee lagen op de pagina — de drie fasen als overzicht, daaronder de drie
-// stappen binnen Experimenteren — en zonder verschil in dichtheid lees je zes
-// gelijkwaardige stappen in plaats van een overzicht met een uitvergroting.
-// Daarom: `fase` vat de activiteiten samen in tags, `stap` somt ze op in bullets.
+// Een fase of stap uit de werkwijze. `variant="fase"` toont de activiteiten als
+// tags, `variant="stap"` als lijst; zo lezen de fasen als overzicht en de stappen
+// eronder als detail.
 //
-// Het nummer staat in de overline in plaats van in een nldd-step-indicator: dat
-// component is een voortgangs-nav met één `current` stap ("hier ben je nu"),
-// terwijl deze tab een werkwijze beschrijft en niet de stand van één traject.
+// Geen nldd-step-indicator voor het nummer: die markeert één huidige stap in een
+// traject, en deze pagina beschrijft een werkwijze.
 defineProps({
   fase: { type: Object, required: true },
   // Het woord voor de overline; het nummer komt uit `fase.nummer`.
@@ -19,8 +16,7 @@ defineProps({
 <template>
   <nldd-card :background="fase.background">
     <nldd-container padding="20" gap="12">
-      <!-- nldd-title heeft geen `start`-slot, dus het fase-icoon staat naast de
-           titel in een row-container, net als in ServiceCard. -->
+      <!-- nldd-title heeft geen `start`-slot, vandaar de row-container. -->
       <nldd-container layout="row" gap="8" vertical-alignment="center">
         <nldd-icon
           v-if="fase.icon"

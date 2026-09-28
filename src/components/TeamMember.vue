@@ -1,6 +1,6 @@
 <script setup>
-// The avatar is `decorative` because the name stands right beside it as text;
-// a dead photo src falls back to the derived initials, never a broken image.
+// `decorative`: the name is right below the avatar. A missing photo falls back
+// to initials.
 defineProps({ member: { type: Object, required: true } });
 </script>
 
