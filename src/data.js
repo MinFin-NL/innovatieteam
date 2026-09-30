@@ -62,6 +62,13 @@ export const PRODUCTS = [
     url: cleanUrl(import.meta.env.VITE_URL_NORMNET),
     icon: 'icons/normnet_logo.svg',
   },
+  {
+    id: 'regiekamer',
+    name: 'Regiekamer',
+    description: 'Demo van een AI-organisatie: stel een organogram van AI-collega’s samen, geef ze taken en kijk hoe ze werken, delegeren en hun budget besteden.',
+    url: cleanUrl(import.meta.env.VITE_URL_REGIEKAMER),
+    icon: 'icons/regiekamer_logo.svg',
+  },
 ];
 
 // Tools we have stopped. They get no URL and are not pinged; the dashboard shows

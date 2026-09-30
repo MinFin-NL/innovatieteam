@@ -38,6 +38,7 @@ stages:
               VITE_URL_FINCHAT_INNOVATIE: $(URL_FINCHAT_INNOVATIE)
               VITE_URL_KAMERDEBATAI: $(URL_KAMERDEBATAI)
               VITE_URL_NORMNET: $(URL_NORMNET)
+              VITE_URL_REGIEKAMER: $(URL_REGIEKAMER)
               VITE_URL_DEVOPS_BOARD: $(URL_DEVOPS_BOARD)
             inputs:
               azureSubscription: $(AZURE_SERVICE_CONNECTION)
@@ -54,6 +55,7 @@ stages:
                   --build-arg VITE_URL_FINCHAT_INNOVATIE="$VITE_URL_FINCHAT_INNOVATIE" \
                   --build-arg VITE_URL_KAMERDEBATAI="$VITE_URL_KAMERDEBATAI" \
                   --build-arg VITE_URL_NORMNET="$VITE_URL_NORMNET" \
+                  --build-arg VITE_URL_REGIEKAMER="$VITE_URL_REGIEKAMER" \
                   --build-arg VITE_URL_DEVOPS_BOARD="$VITE_URL_DEVOPS_BOARD" \
                   -t "$ACR_LOGIN_SERVER/$IMAGE:$IMAGE_TAG" \
                   -t "$ACR_LOGIN_SERVER/$IMAGE:latest" .
