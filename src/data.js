@@ -69,6 +69,13 @@ export const PRODUCTS = [
     url: cleanUrl(import.meta.env.VITE_URL_REGIEKAMER),
     icon: 'icons/regiekamer_logo.svg',
   },
+  {
+    id: 'teamgriffie',
+    name: 'Teamgriffie',
+    description: 'Zet de documenten van een team om in een besluitenregister: welke besluiten gelden, wat is vervangen en waar staat het.',
+    url: cleanUrl(import.meta.env.VITE_URL_TEAMGRIFFIE),
+    icon: 'icons/teamgriffie_logo.svg',
+  },
 ];
 
 // Tools we have stopped. They get no URL and are not pinged; the dashboard shows
