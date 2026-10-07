@@ -76,6 +76,13 @@ export const PRODUCTS = [
     url: cleanUrl(import.meta.env.VITE_URL_TEAMGRIFFIE),
     icon: 'icons/teamgriffie_logo.svg',
   },
+  {
+    id: 'tekstontleder',
+    name: 'Tekstontleder',
+    description: 'Laat per stuk tekst zien waar het vandaan komt: door een mens geschreven, door AI gegenereerd of uit een ander document gekopieerd.',
+    url: cleanUrl(import.meta.env.VITE_URL_TEKSTONTLEDER),
+    icon: 'icons/tekstontleder_logo.svg',
+  },
 ];
 
 // Tools we have stopped. They get no URL and are not pinged; the dashboard shows
