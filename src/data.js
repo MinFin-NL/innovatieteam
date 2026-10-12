@@ -83,6 +83,13 @@ export const PRODUCTS = [
     url: cleanUrl(import.meta.env.VITE_URL_TEKSTONTLEDER),
     icon: 'icons/tekstontleder_logo.svg',
   },
+  {
+    id: 'transcriptie',
+    name: 'Transcriptie',
+    description: 'Zet een opname of audiobestand van maximaal 2 uur om in tekst die je kunt aanpassen en downloaden.',
+    url: cleanUrl(import.meta.env.VITE_URL_TRANSCRIPTIE),
+    icon: 'icons/transcriptie_logo.svg',
+  },
 ];
 
 // Tools we have stopped. They get no URL and are not pinged; the dashboard shows
