@@ -28,7 +28,7 @@ stages:
           - task: AzureCLI@2
             displayName: Build and push image
             env:
-              IMAGE_TAG: $(Build.SourceVersion)
+              IMAGE_TAG: $(Build.SourceVersion)-$(Build.BuildId)
               IMAGE: $(IMAGE)
               RESOURCE_GROUP: $(RESOURCE_GROUP)
               VITE_URL_FINDOCS: $(URL_FINDOCS)
@@ -78,7 +78,7 @@ stages:
           - task: AzureCLI@2
             displayName: Deploy container app
             env:
-              IMAGE_TAG: $(Build.SourceVersion)
+              IMAGE_TAG: $(Build.SourceVersion)-$(Build.BuildId)
               IMAGE: $(IMAGE)
               APP: $(APP)
               RESOURCE_GROUP: $(RESOURCE_GROUP)
