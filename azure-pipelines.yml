@@ -98,6 +98,11 @@ stages:
                     --name "$APP" \
                     --resource-group "$RESOURCE_GROUP" \
                     --image "$ACR_LOGIN_SERVER/$IMAGE:$IMAGE_TAG"
+                  # nginx listens on 8080 since it runs unprivileged.
+                  az containerapp ingress update \
+                    --name "$APP" \
+                    --resource-group "$RESOURCE_GROUP" \
+                    --target-port 8080
                 else
                   az containerapp create \
                     --name "$APP" \
@@ -108,7 +113,7 @@ stages:
                     --registry-username "$ACR_USER" \
                     --registry-password "$ACR_PASS" \
                     --ingress external \
-                    --target-port 80 \
+                    --target-port 8080 \
                     --cpu 0.25 --memory 0.5Gi \
                     --min-replicas 1 --max-replicas 3
                 fi

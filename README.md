@@ -53,7 +53,7 @@ The multi-stage `Dockerfile` builds the app and serves it with nginx:
 
 ```sh
 docker build --build-arg VITE_URL_FINCHAT=https://… -t innovatieteam .
-docker run -p 8080:80 innovatieteam   # http://localhost:8080
+docker run -p 8080:8080 innovatieteam   # http://localhost:8080
 ```
 
 `azure-pipelines.yml` builds the image on every push to `main`, pushes it to ACR and
