@@ -304,7 +304,7 @@ onUnmounted(() => {
             <nldd-title size="3">
               <span slot="overline">Onze missie</span>
               <h3>
-                Wij versterken het innovatievermogen van het Ministerie van Financiën
+                Wij brengen versnelling in de vernieuwing
               </h3>
             </nldd-title>
             <nldd-rich-text>
