@@ -35,18 +35,20 @@ const midColumn = 2 * index + 1;
     <div class="panel">
       <nldd-container padding="24" gap="16">
         <nldd-container layout="row" gap="8" vertical-alignment="center">
-          <nldd-icon name="arrow-down" size="20" color="accent"></nldd-icon>
-          <nldd-title size="3">
-            <span slot="overline">{{ label }} {{ fase.nummer }} in detail</span>
-            <h3>Binnen {{ fase.name }}</h3>
-          </nldd-title>
+          <nldd-icon icon="arrow-down" size="20" color="accent"></nldd-icon>
+          <nldd-title
+            size="3"
+            heading-level="2"
+            :overline="`${label} ${fase.nummer} in detail`"
+            :text="`Binnen ${fase.name}`"
+          ></nldd-title>
         </nldd-container>
 
         <nldd-text v-if="$slots.default" size="sm" color="secondary">
           <slot></slot>
         </nldd-text>
 
-        <PhaseFlow :fases="stappen" label="Stap" variant="stap" />
+        <PhaseFlow :fases="stappen" label="Stap" variant="stap" :heading-level="3" />
       </nldd-container>
     </div>
   </div>

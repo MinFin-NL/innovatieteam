@@ -1,6 +1,7 @@
 <script setup>
 // Kaarten naast elkaar met een pijl ertussen, voor de fasen en voor de stappen
-// binnen Experimenteren. `label` en `variant` gaan door naar PhaseCard.
+// binnen Experimenteren. `label`, `variant` en `headingLevel` gaan door naar
+// PhaseCard.
 //
 // Eigen CSS omdat NLDD-containers ruimte naar inhoud verdelen, en hier moeten
 // de kolommen even breed en even hoog zijn. Een grid `1fr auto 1fr auto 1fr`
@@ -11,6 +12,7 @@ const props = defineProps({
   fases: { type: Array, required: true },
   label: { type: String, default: 'Stap' },
   variant: { type: String, default: 'stap' },
+  headingLevel: { type: Number, default: 2 },
 });
 
 // Berekend, zodat een extra fase in data.js vanzelf een kolom krijgt.
@@ -22,9 +24,14 @@ const columns = props.fases.map(() => '1fr').join(' auto ');
     <template v-for="(fase, index) in fases" :key="fase.id">
       <!-- Decoratief: de volgorde staat al in de overline van elke kaart. -->
       <div v-if="index > 0" class="arrow" aria-hidden="true">
-        <nldd-icon name="arrow-right" size="24" color="accent"></nldd-icon>
+        <nldd-icon icon="arrow-right" size="24" color="accent"></nldd-icon>
       </div>
-      <PhaseCard :fase="fase" :label="label" :variant="variant" />
+      <PhaseCard
+        :fase="fase"
+        :label="label"
+        :variant="variant"
+        :heading-level="headingLevel"
+      />
     </template>
   </div>
 </template>

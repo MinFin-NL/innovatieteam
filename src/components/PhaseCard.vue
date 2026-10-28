@@ -3,13 +3,16 @@
 // tags, `variant="stap"` als lijst; zo lezen de fasen als overzicht en de stappen
 // eronder als detail.
 //
-// Geen nldd-step-indicator voor het nummer: die markeert één huidige stap in een
+// `headingLevel` is het kopniveau van de naam; de vraag staat een niveau lager.
+//
+// Geen nldd-step-bar voor het nummer: die markeert één huidige stap in een
 // traject, en deze pagina beschrijft een werkwijze.
 defineProps({
   fase: { type: Object, required: true },
   // Het woord voor de overline; het nummer komt uit `fase.nummer`.
   label: { type: String, default: 'Stap' },
   variant: { type: String, default: 'stap' },
+  headingLevel: { type: Number, default: 2 },
 });
 </script>
 
@@ -20,14 +23,16 @@ defineProps({
       <nldd-container layout="row" gap="8" vertical-alignment="center">
         <nldd-icon
           v-if="fase.icon"
-          :name="fase.icon"
+          :icon="fase.icon"
           size="24"
           color="accent"
         ></nldd-icon>
-        <nldd-title size="4">
-          <span slot="overline">{{ label }} {{ fase.nummer }}</span>
-          <h3>{{ fase.name }}</h3>
-        </nldd-title>
+        <nldd-title
+          size="4"
+          :heading-level="headingLevel"
+          :overline="`${label} ${fase.nummer}`"
+          :text="fase.name"
+        ></nldd-title>
         <nldd-badge
           v-if="fase.afkorting"
           color="accent"
@@ -36,9 +41,7 @@ defineProps({
         ></nldd-badge>
       </nldd-container>
 
-      <nldd-title size="5">
-        <h4>{{ fase.vraag }}</h4>
-      </nldd-title>
+      <nldd-title size="5" :heading-level="headingLevel + 1" :text="fase.vraag"></nldd-title>
 
       <nldd-text size="sm" color="secondary">{{ fase.description }}</nldd-text>
 

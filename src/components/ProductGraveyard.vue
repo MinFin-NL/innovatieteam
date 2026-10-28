@@ -14,20 +14,19 @@ defineProps({ products: { type: Array, required: true } });
   <details class="graveyard">
     <summary>
       <nldd-container layout="row" gap="12" vertical-alignment="center">
-        <nldd-icon class="chevron" name="chevron-right" size="20" color="accent"></nldd-icon>
-        <nldd-icon name="archive" size="24" color="accent"></nldd-icon>
-        <nldd-title size="3">
-          <h2>Kerkhof</h2>
-          <span slot="subtitle">
-            {{ products.length }} {{ products.length === 1 ? 'tool' : 'tools' }} waar we
-            mee gestopt zijn. Bewust stoppen hoort bij onze werkwijze.
-          </span>
-        </nldd-title>
+        <nldd-icon class="chevron" icon="chevron-right" size="20" color="accent"></nldd-icon>
+        <nldd-icon icon="archive" size="24" color="accent"></nldd-icon>
+        <nldd-title
+          size="3"
+          heading-level="2"
+          text="Kerkhof"
+          :supporting-text="`${products.length} ${products.length === 1 ? 'tool' : 'tools'} waar we mee gestopt zijn. Bewust stoppen hoort bij onze werkwijze.`"
+        ></nldd-title>
       </nldd-container>
     </summary>
 
     <nldd-container padding-inline="16" padding-top="8" padding-bottom="16">
-      <nldd-collection layout="grid" item-width="280px" :max-items="products.length">
+      <nldd-collection layout="grid" item-min-width="280px" :max-items="products.length">
         <ProductCard
           v-for="product in products"
           :key="product.id"

@@ -14,10 +14,8 @@ const COLUMNS = [
   <nldd-card>
     <nldd-container padding="24" gap="16">
       <nldd-container layout="row" gap="12" vertical-alignment="center">
-        <nldd-icon :name="service.icon" size="32" color="accent"></nldd-icon>
-        <nldd-title size="3">
-          <h3>{{ service.name }}</h3>
-        </nldd-title>
+        <nldd-icon :icon="service.icon" size="32" color="accent"></nldd-icon>
+        <nldd-title size="3" heading-level="2" :text="service.name"></nldd-title>
         <nldd-badge
           v-if="service.voorbeeld"
           color="accent"
@@ -31,10 +29,8 @@ const COLUMNS = [
       <nldd-container layout="grid" gap="24">
         <nldd-container v-for="column in COLUMNS" :key="column.key" gap="8">
           <nldd-container layout="row" gap="8" vertical-alignment="center">
-            <nldd-icon :name="column.icon" size="20" color="accent"></nldd-icon>
-            <nldd-title size="5">
-              <h4>{{ column.label }}</h4>
-            </nldd-title>
+            <nldd-icon :icon="column.icon" size="20" color="accent"></nldd-icon>
+            <nldd-title size="5" heading-level="3" :text="column.label"></nldd-title>
           </nldd-container>
           <nldd-rich-text>
             <ul>

@@ -2,7 +2,6 @@
 // registers all ~115 elements, CodeMirror editors included, about 1.4 MB of JS
 // this dashboard never runs. Add a line here when a template uses a new nldd-*
 // element.
-import '@nldd/design-system/app-view';
 import '@nldd/design-system/avatar';
 import '@nldd/design-system/badge';
 import '@nldd/design-system/button';
@@ -16,6 +15,7 @@ import '@nldd/design-system/menu-bar-item';
 import '@nldd/design-system/page';
 import '@nldd/design-system/page-footer';
 import '@nldd/design-system/rich-text';
+import '@nldd/design-system/shell';
 import '@nldd/design-system/simple-section';
 import '@nldd/design-system/skip-link';
 import '@nldd/design-system/spacer';

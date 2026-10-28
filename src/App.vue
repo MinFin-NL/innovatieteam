@@ -99,44 +99,43 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <nldd-app-view>
+  <nldd-shell>
     <nldd-page>
-      <!-- First in the header, so it is the first thing a keyboard user reaches. -->
+      <!-- Wraps the bar it skips, so it is the first thing a keyboard user
+           reaches. The href lands on the visible tab's section. -->
       <nldd-skip-link
         slot="header"
         :href="`#${activeSection}`"
-        text="Direct naar de inhoud"
-      ></nldd-skip-link>
-
-      <nldd-top-navigation-bar
-        slot="header"
-        logo-title="Ministerie van Financiën"
-        website-title="Innovatieteam"
+        text="Sla navigatie over"
       >
-        <nldd-menu-bar slot="global" accessible-label="Secties">
-          <nldd-menu-bar-item
-            v-for="tab in TABS"
-            :key="tab.id"
-            :text="tab.label"
-            :icon="tab.icon"
-            :current="activeSection === tab.id"
-            @select="selectTab(tab.id)"
-          ></nldd-menu-bar-item>
-        </nldd-menu-bar>
-      </nldd-top-navigation-bar>
+        <nldd-top-navigation-bar
+          logo-title="Ministerie van Financiën"
+          website-title="Innovatieteam"
+        >
+          <nldd-menu-bar slot="global" accessible-label="Secties">
+            <nldd-menu-bar-item
+              v-for="tab in TABS"
+              :key="tab.id"
+              :text="tab.label"
+              :icon="tab.icon"
+              :current="activeSection === tab.id"
+              @select="selectTab(tab.id)"
+            ></nldd-menu-bar-item>
+          </nldd-menu-bar>
+        </nldd-top-navigation-bar>
+      </nldd-skip-link>
 
       <nldd-simple-section
         id="producten"
         padding-bottom="24"
         v-show="activeSection === 'producten'"
       >
-        <nldd-title size="1">
-          <h1>Wij bouwen AI-producten voor het Ministerie van Financiën</h1>
-          <span slot="subtitle">
-            We proberen nieuwe technologie uit voor beleid en uitvoering. Wat werkt,
-            bouwen we uit tot een tool die collega's gebruiken.
-          </span>
-        </nldd-title>
+        <nldd-title
+          size="1"
+          heading-level="1"
+          text="Wij bouwen AI-producten voor het Ministerie van Financiën"
+          supporting-text="We proberen nieuwe technologie uit voor beleid en uitvoering. Wat werkt, bouwen we uit tot een tool die collega's gebruiken."
+        ></nldd-title>
         <template v-if="totalPingable">
           <nldd-spacer size="16"></nldd-spacer>
           <nldd-container layout="wrap" gap="8">
@@ -146,11 +145,10 @@ onUnmounted(() => {
       </nldd-simple-section>
 
       <nldd-simple-section padding-top="8" v-show="activeSection === 'producten'">
-        <nldd-title slot="header" size="3">
-          <h2>Onze producten</h2>
+        <nldd-title slot="header" size="3" heading-level="2" text="Onze producten">
           <nldd-button
             slot="end"
-            variant="neutral-tinted"
+            appearance="neutral-tinted"
             size="sm"
             start-icon="arrow-clockwise"
             text="Vernieuwen"
@@ -160,7 +158,7 @@ onUnmounted(() => {
           ></nldd-button>
         </nldd-title>
 
-        <nldd-collection layout="grid" item-width="280px" :max-items="PRODUCTS.length">
+        <nldd-collection layout="grid" item-min-width="280px" :max-items="PRODUCTS.length">
           <ProductCard
             v-for="product in PRODUCTS"
             :key="product.id"
@@ -179,10 +177,13 @@ onUnmounted(() => {
       </nldd-simple-section>
 
       <nldd-simple-section id="services" v-show="activeSection === 'services'">
-        <nldd-title slot="header" size="1">
-          <h1>Onze services</h1>
-          <span slot="subtitle">Wat we voor directies en teams kunnen doen.</span>
-        </nldd-title>
+        <nldd-title
+          slot="header"
+          size="1"
+          heading-level="1"
+          text="Onze services"
+          supporting-text="Wat we voor directies en teams kunnen doen."
+        ></nldd-title>
 
         <nldd-rich-text>
           <p>
@@ -207,10 +208,12 @@ onUnmounted(() => {
 
         <nldd-card>
           <nldd-container padding="24" gap="8">
-            <nldd-title size="3">
-              <span slot="overline">Samenwerking</span>
-              <h3>Wat breng jij mee?</h3>
-            </nldd-title>
+            <nldd-title
+              size="3"
+              heading-level="2"
+              overline="Samenwerking"
+              text="Wat breng jij mee?"
+            ></nldd-title>
             <nldd-text color="secondary">Voor elke service hebben we dit van je nodig:</nldd-text>
             <nldd-container layout="wrap" gap="8">
               <nldd-tag
@@ -232,31 +235,25 @@ onUnmounted(() => {
       </nldd-simple-section>
 
       <nldd-simple-section id="werkwijze" v-show="activeSection === 'werkwijze'">
-        <nldd-title slot="header" size="1">
-          <h1>Onze werkwijze</h1>
-          <span slot="subtitle">
-            Een idee gaat door drie fasen voordat het een dienst wordt. Na elke fase
-            besluiten we of we doorgaan of stoppen.
-          </span>
+        <nldd-title
+          slot="header"
+          size="1"
+          heading-level="1"
+          text="Onze werkwijze"
+          supporting-text="Een idee gaat door drie fasen voordat het een dienst wordt. Na elke fase besluiten we of we doorgaan of stoppen."
+        >
+          <!-- No disabled placeholder without a URL: NLDD advises against
+               disabled buttons, and there is nothing to act on. -->
           <nldd-button
             v-if="KANBAN_BOARD.url"
             slot="end"
             :href="KANBAN_BOARD.url"
             target="_blank"
-            variant="accent-filled"
+            appearance="accent-filled"
             size="sm"
             text="Kanban-bord"
             end-icon="square-arrow-right-top"
             accessible-label="Ons Kanban-bord in Azure DevOps openen"
-          ></nldd-button>
-          <nldd-button
-            v-else
-            slot="end"
-            variant="neutral-tinted"
-            size="sm"
-            disabled
-            text="Kanban-bord"
-            accessible-label="Kanban-bord nog niet beschikbaar"
           ></nldd-button>
         </nldd-title>
 
@@ -273,10 +270,12 @@ onUnmounted(() => {
 
         <nldd-card>
           <nldd-container padding="24" gap="8">
-            <nldd-title size="3">
-              <span slot="overline">Binnen elke fase</span>
-              <h3>Wij werken agile</h3>
-            </nldd-title>
+            <nldd-title
+              size="3"
+              heading-level="2"
+              overline="Binnen elke fase"
+              text="Wij werken agile"
+            ></nldd-title>
             <nldd-text size="sm" color="secondary">
               We werken in korte sprints. Elke sprint levert iets op dat werkt, we
               vragen de gebruikers wat ze ervan vinden en passen de volgende sprint
@@ -294,19 +293,22 @@ onUnmounted(() => {
       </nldd-simple-section>
 
       <nldd-simple-section id="team" v-show="activeSection === 'team'">
-        <nldd-title slot="header" size="1">
-          <h1>Wie zijn wij</h1>
-          <span slot="subtitle">Het innovatieteam van het Ministerie van Financiën</span>
-        </nldd-title>
+        <nldd-title
+          slot="header"
+          size="1"
+          heading-level="1"
+          text="Wie zijn wij"
+          supporting-text="Het innovatieteam van het Ministerie van Financiën"
+        ></nldd-title>
 
         <nldd-card>
           <nldd-container padding="24" gap="8">
-            <nldd-title size="3">
-              <span slot="overline">Onze missie</span>
-              <h3>
-                Wij brengen versnelling in de vernieuwing
-              </h3>
-            </nldd-title>
+            <nldd-title
+              size="3"
+              heading-level="2"
+              overline="Onze missie"
+              text="Wij brengen versnelling in de vernieuwing"
+            ></nldd-title>
             <nldd-rich-text>
               <p>
                 Door innovatie doelgericht en wendbaar te organiseren, ondersteunen wij
@@ -323,17 +325,15 @@ onUnmounted(() => {
 
         <nldd-spacer size="32"></nldd-spacer>
 
-        <nldd-title size="3">
-          <h3>Teamleden</h3>
-        </nldd-title>
+        <nldd-title size="3" heading-level="2" text="Teamleden"></nldd-title>
         <nldd-spacer size="16"></nldd-spacer>
 
-        <nldd-collection layout="grid" item-width="240px" :max-items="TEAM.length">
+        <nldd-collection layout="grid" item-min-width="240px" :max-items="TEAM.length">
           <TeamMember v-for="member in TEAM" :key="member.id" :member="member" />
         </nldd-collection>
       </nldd-simple-section>
 
-      <nldd-page-footer>
+      <nldd-page-footer slot="footer">
         <nldd-container padding="24" gap="8">
           <nldd-text>Innovatieteam, Ministerie van Financiën</nldd-text>
           <nldd-text size="sm" color="secondary">
@@ -342,5 +342,5 @@ onUnmounted(() => {
         </nldd-container>
       </nldd-page-footer>
     </nldd-page>
-  </nldd-app-view>
+  </nldd-shell>
 </template>

@@ -22,8 +22,7 @@ defineProps({
         decorative
       ></nldd-image>
 
-      <nldd-title size="4">
-        <h3>{{ product.name }}</h3>
+      <nldd-title size="4" heading-level="3" :text="product.name">
         <StatusBadge slot="end" :status="retired ? 'retired' : status" />
       </nldd-title>
 
@@ -35,21 +34,15 @@ defineProps({
         v-if="product.url"
         :href="product.url"
         target="_blank"
-        variant="accent-filled"
+        appearance="accent-filled"
         size="sm"
         width="full"
         text="Openen"
         end-icon="square-arrow-right-top"
         :accessible-label="`${product.name} openen`"
       ></nldd-button>
-      <nldd-button
-        v-else
-        variant="neutral-tinted"
-        size="sm"
-        width="full"
-        disabled
-        text="Nog niet beschikbaar"
-      ></nldd-button>
+      <!-- Text, not a disabled button: NLDD advises against those. -->
+      <nldd-text v-else size="sm" color="secondary">Nog niet beschikbaar</nldd-text>
     </nldd-container>
   </nldd-card>
 </template>

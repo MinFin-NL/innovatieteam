@@ -13,9 +13,7 @@ defineProps({ member: { type: Object, required: true } });
         :name="member.name"
         decorative
       ></nldd-avatar>
-      <nldd-title size="4">
-        <h3>{{ member.name }}</h3>
-      </nldd-title>
+      <nldd-title size="4" heading-level="3" :text="member.name"></nldd-title>
       <nldd-text size="sm" color="secondary" horizontal-alignment="center">
         {{ member.role }}
       </nldd-text>
