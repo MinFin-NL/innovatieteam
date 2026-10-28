@@ -32,6 +32,7 @@ stages:
               IMAGE: $(IMAGE)
               RESOURCE_GROUP: $(RESOURCE_GROUP)
               VITE_URL_FINDOCS: $(URL_FINDOCS)
+              VITE_URL_FINKENNIS: $(URL_FINKENNIS)
               VITE_URL_KASVISIE: $(URL_KASVISIE)
               VITE_URL_INNOVATIEPLATFORM: $(URL_INNOVATIEPLATFORM)
               VITE_URL_BELEIDSASSISTENT: $(URL_BELEIDSASSISTENT)
@@ -52,6 +53,7 @@ stages:
                 az acr login --name "${ACR_LOGIN_SERVER%%.*}"
                 docker build \
                   --build-arg VITE_URL_FINDOCS="$VITE_URL_FINDOCS" \
+                  --build-arg VITE_URL_FINKENNIS="$VITE_URL_FINKENNIS" \
                   --build-arg VITE_URL_KASVISIE="$VITE_URL_KASVISIE" \
                   --build-arg VITE_URL_INNOVATIEPLATFORM="$VITE_URL_INNOVATIEPLATFORM" \
                   --build-arg VITE_URL_BELEIDSASSISTENT="$VITE_URL_BELEIDSASSISTENT" \

@@ -21,6 +21,13 @@ export const PRODUCTS = [
     icon: 'icons/findocs_logo.svg',
   },
   {
+    id: 'finkennis',
+    name: 'FinKennis',
+    description: 'Maak een kennisbank van je documenten en stel er vragen over. Je krijgt antwoord met verwijzingen naar bestand, pagina en kopje.',
+    url: cleanUrl(import.meta.env.VITE_URL_FINKENNIS),
+    icon: 'icons/finkennis_logo.svg',
+  },
+  {
     id: 'kasvisie',
     name: 'Kasvisie',
     description: 'Maakt kasstromen en financiële prognoses van de overheid inzichtelijk.',
