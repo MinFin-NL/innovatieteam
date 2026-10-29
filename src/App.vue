@@ -306,7 +306,6 @@ onUnmounted(() => {
             <nldd-title
               size="3"
               heading-level="2"
-              overline="Onze missie"
               text="Wij brengen versnelling in de vernieuwing"
             ></nldd-title>
             <nldd-rich-text>
