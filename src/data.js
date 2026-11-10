@@ -42,13 +42,6 @@ export const PRODUCTS = [
     icon: 'icons/innovatieplatform_logo.svg',
   },
   {
-    id: 'beleidsassistent',
-    name: 'Beleids Evaluaties Agent',
-    description: 'Helpt beleidsmakers met analyses en adviezen.',
-    url: cleanUrl(import.meta.env.VITE_URL_BELEIDSASSISTENT),
-    icon: 'icons/beleidsassistent_logo.svg',
-  },
-  {
     id: 'finchat-innovatie',
     name: 'FinChat - Innovatie',
     description: 'Experimentele versie van FinChat.',
@@ -102,6 +95,12 @@ export const PRODUCTS = [
 // Tools we have stopped. They get no URL and are not pinged; the dashboard shows
 // them under "Kerkhof" on the products tab.
 export const RETIRED_PRODUCTS = [
+  {
+    id: 'beleidsassistent',
+    name: 'Beleids Evaluaties Agent',
+    description: 'Helpt beleidsmakers met analyses en adviezen.',
+    icon: 'icons/beleidsassistent_logo.svg',
+  },
   {
     id: 'finchat',
     name: 'FinChat - Productie',
